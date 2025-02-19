@@ -9,6 +9,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Project } from "@/types/project";
+import ImageWithFallback from "./ImageWithFallback";
 
 interface ProjectCardProps {
   project: Project;
@@ -31,11 +32,12 @@ const ProjectCard = ({ project, onViewCaseStudy }: ProjectCardProps) => {
           aria-label={`View details of ${project.title}`}
         >
           <div className="aspect-video bg-neutral-100 dark:bg-neutral-900 overflow-hidden">
-            <img
+            <ImageWithFallback
               src={project.images[0]}
               alt={`Preview of ${project.title}`}
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-              loading="lazy"
+              width={800}
+              height={450}
             />
           </div>
           <div className="p-6 md:p-8">
@@ -68,12 +70,13 @@ const ProjectCard = ({ project, onViewCaseStudy }: ProjectCardProps) => {
           </DialogHeader>
           <div className="grid gap-4">
             {project.images.map((image, index) => (
-              <img
+              <ImageWithFallback
                 key={index}
                 src={image}
                 alt={`${project.title} showcase image ${index + 1}`}
                 className="w-full rounded-lg shadow-md"
-                loading="lazy"
+                width={1200}
+                height={675}
               />
             ))}
           </div>
