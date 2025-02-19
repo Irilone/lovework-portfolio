@@ -19,7 +19,7 @@ const About = () => {
           >
             <div className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden bg-neutral-100 dark:bg-neutral-900 ring-2 ring-neutral-200 dark:ring-neutral-800">
               <img
-                src="/lovable-uploads/b3050c0a-1bfd-4fe8-a8ec-d2c112daddc5.png"
+                src="/lovable-uploads/profile-picture-about-me.png"
                 alt="Profile picture"
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                 loading="eager"
