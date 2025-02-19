@@ -51,6 +51,24 @@
     --ring: 0 0% 84%;
   }
 
+  @media (prefers-contrast: more) {
+    :root {
+      --background: 0 0% 100%;
+      --foreground: 0 0% 0%;
+      --muted-foreground: 0 0% 20%;
+      --primary: 0 0% 0%;
+      --primary-foreground: 0 0% 100%;
+    }
+
+    .dark {
+      --background: 0 0% 0%;
+      --foreground: 0 0% 100%;
+      --muted-foreground: 0 0% 80%;
+      --primary: 0 0% 100%;
+      --primary-foreground: 0 0% 0%;
+    }
+  }
+
   * {
     @apply border-border;
   }
@@ -61,6 +79,15 @@
 
   body {
     @apply bg-background text-foreground font-inter antialiased;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
   }
 }
 

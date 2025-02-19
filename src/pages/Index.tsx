@@ -1,5 +1,4 @@
-
-import { ArrowRight, Mail, Github, Linkedin, Sun, Moon, Send } from "lucide-react";
+import { ArrowRight, Mail, Github, Linkedin, Sun, Moon, Send, ChevronDown } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -24,11 +23,32 @@ const Index = () => {
     email: '',
     message: ''
   });
+  const [displayText, setDisplayText] = useState("");
+  const fullText = "Creating intuitive and impactful digital experiences";
   const { toast } = useToast();
   const navigate = useNavigate();
 
   useEffect(() => {
     setMounted(true);
+
+    // Typewriter effect with reduced motion check
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    
+    if (!prefersReducedMotion) {
+      let i = 0;
+      const timer = setInterval(() => {
+        if (i <= fullText.length) {
+          setDisplayText(fullText.slice(0, i));
+          i++;
+        } else {
+          clearInterval(timer);
+        }
+      }, 50);
+
+      return () => clearInterval(timer);
+    } else {
+      setDisplayText(fullText);
+    }
   }, []);
 
   const toggleTheme = () => {
@@ -49,7 +69,6 @@ const Index = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate form submission
     try {
       await new Promise(resolve => setTimeout(resolve, 1500));
       toast({
@@ -76,35 +95,57 @@ const Index = () => {
       <Button
         variant="ghost"
         size="icon"
-        className="fixed top-6 right-6 z-50 rounded-full"
+        className="fixed top-6 right-20 z-50 rounded-full"
         onClick={toggleTheme}
+        aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
       >
         {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
       </Button>
       
       {/* Hero Section */}
-      <section className="min-h-[90vh] flex items-center justify-center px-4 md:px-6 bg-gradient-to-b from-background to-secondary/20">
-        <div className="text-center space-y-6 md:space-y-8 animate-fade-up">
+      <section 
+        className="relative min-h-[90vh] flex items-center justify-center px-4 md:px-6"
+        aria-labelledby="hero-heading"
+      >
+        <div className="absolute inset-0 bg-gradient-to-b from-background via-background/50 to-background pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/5 via-transparent to-transparent animate-pulse" 
+             style={{ animationDuration: '4s' }} />
+        
+        <div className="relative text-center space-y-6 md:space-y-8 animate-fade-up">
           <span className="text-xs md:text-sm uppercase tracking-widest text-muted-foreground">
             Interaction Designer & HCI Specialist
           </span>
-          <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold tracking-tight">
+          <h1 
+            id="hero-heading"
+            className="text-4xl md:text-5xl lg:text-7xl font-bold tracking-tight"
+          >
             Dorian Tykesson
           </h1>
           <p className="text-lg md:text-xl lg:text-2xl text-muted-foreground max-w-2xl mx-auto">
-            Blending cognitive science with human-centered design
+            {displayText}
+            <span className="animate-pulse">|</span>
           </p>
           <p className="text-base md:text-lg text-muted-foreground max-w-xl mx-auto">
-            Creating intuitive and impactful digital experiences through research-driven design
+            Blending cognitive science with human-centered design
           </p>
           <Button 
             size="lg" 
-            className="mt-6 md:mt-8 rounded-full" 
+            className="mt-6 md:mt-8 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 focus-visible:scale-105 focus-visible:ring-offset-4"
             onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
+            aria-label="View my work"
           >
             View Work <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
         </div>
+
+        {/* Scroll Cue */}
+        <button
+          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-muted-foreground hover:text-foreground transition-colors"
+          onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
+          aria-label="Scroll to about section"
+        >
+          <ChevronDown className="h-8 w-8 animate-bounce" style={{ animationDuration: '2s' }} />
+        </button>
       </section>
 
       {/* About Section */}
