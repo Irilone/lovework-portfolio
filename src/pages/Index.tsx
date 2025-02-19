@@ -137,12 +137,12 @@ const projects: Project[] = [
     title: "Solace",
     description: "A mental health app for trauma recovery, leveraging AI-driven therapeutic interactions.",
     images: [
-      "/lovable-uploads/Solace-projectcard-img.jpeg",
+      "/lovable-uploads/Solace-projectcard-img.png",
       "/lovable-uploads/solace-1-onboarding.png",
       "/lovable-uploads/solace-2-home.png",
       "/lovable-uploads/solace-3-form.png"
     ],
-    profileImage: "/lovable-uploads/Solace-projectcard-img.jpeg",
+    profileImage: "/lovable-uploads/Solace-projectcard-img.png",
     slug: "solace"
   },
 ];
