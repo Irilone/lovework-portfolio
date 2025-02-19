@@ -29,7 +29,7 @@ const Navigation = () => {
           href="/"
           className="text-lg font-medium hover:text-neutral-500 transition-colors"
         >
-          JD
+          DT
         </a>
 
         {/* Desktop Navigation */}

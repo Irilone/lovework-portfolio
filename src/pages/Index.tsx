@@ -1,52 +1,84 @@
 
-import { ArrowRight, Mail, Github, Linkedin } from "lucide-react";
+import { ArrowRight, Mail, Github, Linkedin, Sun, Moon } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import { Button } from "@/components/ui/button";
+import { useEffect, useState } from "react";
 
 const Index = () => {
+  const [mounted, setMounted] = useState(false);
+  const [isDark, setIsDark] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const toggleTheme = () => {
+    setIsDark(!isDark);
+    document.documentElement.classList.toggle('dark');
+  };
+
+  if (!mounted) return null;
+
   return (
     <div className="min-h-screen w-full">
       <Navigation />
       
+      {/* Theme Toggle */}
+      <Button
+        variant="ghost"
+        size="icon"
+        className="fixed top-6 right-6 z-50 rounded-full"
+        onClick={toggleTheme}
+      >
+        {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+      </Button>
+      
       {/* Hero Section */}
-      <section className="min-h-[90vh] flex items-center justify-center px-6">
+      <section className="min-h-[90vh] flex items-center justify-center px-6 bg-gradient-to-b from-background to-secondary/20">
         <div className="text-center space-y-8 animate-fade-up">
+          <span className="text-sm uppercase tracking-widest text-muted-foreground">
+            Interaction Designer & HCI Specialist
+          </span>
           <h1 className="text-5xl md:text-7xl font-bold tracking-tight">
-            John Doe
+            Dorian Tykesson
           </h1>
           <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto">
-            Product Designer & Developer
+            Blending cognitive science with human-centered design
           </p>
           <p className="text-lg text-muted-foreground max-w-xl mx-auto">
-            Crafting meaningful digital experiences through thoughtful design and clean code.
+            Creating intuitive and impactful digital experiences through research-driven design
           </p>
-          <Button size="lg" className="mt-8 rounded-full">
+          <Button size="lg" className="mt-8 rounded-full" onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}>
             View Work <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
         </div>
       </section>
 
       {/* About Section */}
-      <section id="about" className="py-24 px-6 bg-soft-gray">
+      <section id="about" className="py-24 px-6 bg-soft-gray dark:bg-soft-black">
         <div className="container mx-auto max-w-4xl">
           <h2 className="text-3xl font-bold mb-12">About</h2>
           <div className="space-y-8">
             <p className="text-lg text-muted-foreground leading-relaxed">
-              I'm a designer and developer based in San Francisco, focused on creating 
-              intuitive and impactful digital experiences.
+              Based in Gothenburg, Sweden, I specialize in creating intuitive digital experiences
+              through the lens of cognitive science and human-computer interaction.
             </p>
             <ul className="space-y-4 text-lg text-muted-foreground">
               <li className="flex items-start">
                 <span className="mr-4">•</span>
-                <span>7+ years of experience in product design and development</span>
+                <span>MSc in Interaction Design & Technologies from Chalmers University</span>
               </li>
               <li className="flex items-start">
                 <span className="mr-4">•</span>
-                <span>Previously led design at [Company Name]</span>
+                <span>Background in Cognitive Science & Psychology</span>
               </li>
               <li className="flex items-start">
                 <span className="mr-4">•</span>
-                <span>Specialized in user-centered design and clean architecture</span>
+                <span>Specialized in usability testing and user research</span>
+              </li>
+              <li className="flex items-start">
+                <span className="mr-4">•</span>
+                <span>Passionate about mental health tech and accessibility</span>
               </li>
             </ul>
           </div>
@@ -72,7 +104,7 @@ const Index = () => {
                     {project.description}
                   </p>
                   <Button variant="ghost" className="rounded-full px-0 hover:px-4 transition-all duration-300">
-                    View Project <ArrowRight className="ml-2 h-4 w-4" />
+                    View Case Study <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
                 </div>
               </div>
@@ -82,16 +114,16 @@ const Index = () => {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-24 px-6 bg-soft-gray">
+      <section id="contact" className="py-24 px-6 bg-soft-gray dark:bg-soft-black">
         <div className="container mx-auto max-w-4xl text-center">
           <h2 className="text-3xl font-bold mb-8">Get in Touch</h2>
           <p className="text-lg text-muted-foreground mb-12">
-            Available for select projects. Let's create something meaningful together.
+            Available for select projects and research collaborations.
           </p>
           <div className="flex flex-col items-center space-y-6">
             <Button size="lg" className="rounded-full">
               <Mail className="mr-2 h-4 w-4" />
-              hello@johndoe.com
+              dorian@irilone.st
             </Button>
             <div className="flex items-center space-x-4">
               <Button variant="ghost" size="icon" className="rounded-full">
@@ -108,7 +140,7 @@ const Index = () => {
       {/* Footer */}
       <footer className="py-12 px-6">
         <div className="container mx-auto max-w-4xl text-center text-muted-foreground">
-          <p>© 2024 John Doe. All rights reserved.</p>
+          <p>© 2024 Dorian Tykesson. All rights reserved.</p>
         </div>
       </footer>
     </div>
@@ -117,16 +149,16 @@ const Index = () => {
 
 const projects = [
   {
-    title: "Project One",
-    description: "A clean, minimal e-commerce experience focused on simplicity and usability.",
+    title: "Solace",
+    description: "A mental health app for trauma recovery, leveraging AI-driven therapeutic interactions.",
   },
   {
-    title: "Project Two",
-    description: "Redesigning the way people interact with financial data through intuitive interfaces.",
+    title: "Papyrus",
+    description: "Enhancing academic research accessibility through intuitive interface design.",
   },
   {
-    title: "Project Three",
-    description: "Building a scalable design system for a leading technology company.",
+    title: "SOS Alarm",
+    description: "Optimizing emergency response workflows through cognitive ergonomics.",
   },
 ];
 
