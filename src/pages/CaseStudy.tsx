@@ -1,3 +1,4 @@
+
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Hero from "@/components/case-study/Hero";
@@ -121,15 +122,16 @@ const CaseStudy = () => {
         coverImage={project.images[0]}
       />
 
-      <div className="container mx-auto px-6">
-        <div className="flex gap-12 py-16">
-          <div className="flex-1 max-w-4xl space-y-24">
+      <div className="container mx-auto px-4 sm:px-6">
+        <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 py-12 md:py-16">
+          <div className="flex-1 max-w-4xl space-y-16 md:space-y-24">
             <section 
               id="overview" 
               className="scroll-mt-24 animate-fade-up"
               onFocus={() => setActiveSection("overview")}
+              aria-labelledby="overview-heading"
             >
-              <h2 className="text-3xl font-semibold mb-8">Overview</h2>
+              <h2 id="overview-heading" className="text-3xl font-semibold mb-8">Overview</h2>
               <div className="prose dark:prose-invert max-w-none">
                 <p className="text-xl text-muted-foreground leading-relaxed">
                   {project.overview}
