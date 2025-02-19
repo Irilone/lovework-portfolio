@@ -27,29 +27,50 @@ const Index = () => {
   if (!mounted) return null;
 
   return (
-    <div className="min-h-screen w-full">
+    <div 
+      className="min-h-screen w-full"
+      role="main"
+    >
       <Navigation />
       
-      {/* Theme Toggle - Repositioned */}
+      {/* Theme Toggle - Enhanced for accessibility */}
       <Button
         variant="ghost"
         size="icon"
-        className="fixed top-24 right-6 z-50 rounded-full bg-background/80 backdrop-blur-sm shadow-md"
+        className="fixed top-24 right-6 z-50 rounded-full bg-background/80 backdrop-blur-sm shadow-md focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
         onClick={toggleTheme}
         aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
+        aria-pressed={isDark}
       >
-        {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+        {isDark ? (
+          <Sun className="h-5 w-5" aria-hidden="true" />
+        ) : (
+          <Moon className="h-5 w-5" aria-hidden="true" />
+        )}
       </Button>
       
       <Hero />
       <About />
 
-      {/* Projects Section */}
-      <section id="projects" className="py-16 md:py-24 px-4 md:px-6">
+      {/* Projects Section with improved accessibility */}
+      <section 
+        id="projects" 
+        className="py-16 md:py-24 px-4 md:px-6"
+        aria-labelledby="projects-heading"
+      >
         <div className="container mx-auto">
-          <h2 className="text-2xl md:text-3xl font-bold mb-8 md:mb-12">Selected Work</h2>
+          <h2 
+            id="projects-heading" 
+            className="text-2xl md:text-3xl font-bold mb-8 md:mb-12"
+          >
+            Selected Work
+          </h2>
           
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div 
+            className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+            role="list"
+            aria-label="Project showcase"
+          >
             {projects.map((project) => (
               <ProjectCard
                 key={project.slug}
@@ -63,18 +84,22 @@ const Index = () => {
 
       <Contact />
 
-      {/* Floating Contact Button */}
+      {/* Floating Contact Button with enhanced accessibility */}
       <Button
-        className="fixed bottom-6 right-6 rounded-full shadow-lg"
+        className="fixed bottom-6 right-6 rounded-full shadow-lg focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
         size="lg"
         onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+        aria-label="Scroll to contact section"
       >
         Let's Connect
-        <ArrowRight className="ml-2 h-4 w-4" />
+        <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
       </Button>
 
-      {/* Footer */}
-      <footer className="py-8 md:py-12 px-4 md:px-6">
+      {/* Footer with proper semantic structure */}
+      <footer 
+        className="py-8 md:py-12 px-4 md:px-6"
+        role="contentinfo"
+      >
         <div className="container mx-auto max-w-4xl text-center text-muted-foreground text-sm md:text-base">
           <p>© 2024 Dorian Tykesson. All rights reserved.</p>
         </div>
