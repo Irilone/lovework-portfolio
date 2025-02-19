@@ -3,6 +3,7 @@ import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import CaseStudyNav from "@/components/CaseStudyNav";
 
 const projects = {
   solace: {
@@ -118,6 +119,7 @@ const CaseStudy = () => {
           src={project.images[0]}
           alt={project.title}
           className="w-full h-full object-cover"
+          fetchPriority="high"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 to-transparent">
           <div className="container mx-auto px-6 h-full flex flex-col justify-center">
@@ -126,108 +128,118 @@ const CaseStudy = () => {
               size="icon"
               className="absolute top-6 left-6 text-white hover:bg-white/20"
               onClick={() => navigate('/')}
+              aria-label="Back to home"
             >
               <ArrowLeft className="h-5 w-5" />
             </Button>
-            <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">
+            <h1 className="text-4xl md:text-6xl font-bold text-white mb-4 animate-fade-up">
               {project.title}
             </h1>
-            <p className="text-xl text-white/80">{project.subtitle}</p>
+            <p className="text-xl text-white/80 animate-fade-up [animation-delay:200ms]">
+              {project.subtitle}
+            </p>
           </div>
         </div>
       </div>
 
       {/* Content */}
-      <div className="container mx-auto px-6 py-16 max-w-4xl">
-        {/* Overview */}
-        <section className="mb-16">
-          <h2 className="text-2xl font-semibold mb-6">Overview</h2>
-          <p className="text-lg text-muted-foreground">{project.overview}</p>
-        </section>
+      <div className="container mx-auto px-6 py-16">
+        <div className="flex gap-12">
+          <div className="flex-1 max-w-4xl">
+            {/* Overview */}
+            <section id="overview" className="mb-16 scroll-mt-24 animate-fade-up">
+              <h2 className="text-2xl font-semibold mb-6">Overview</h2>
+              <div className="prose dark:prose-invert">
+                <p className="text-lg text-muted-foreground">{project.overview}</p>
+              </div>
+            </section>
 
-        {/* Role & Tools */}
-        <section className="mb-16">
-          <h2 className="text-2xl font-semibold mb-6">Role & Tools</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div>
-              <h3 className="text-lg font-medium mb-4">Role</h3>
-              <p className="text-muted-foreground">{project.role}</p>
-              <p className="text-muted-foreground mt-2">{project.timeline}</p>
-            </div>
-            <div>
-              <h3 className="text-lg font-medium mb-4">Tools Used</h3>
-              <div className="flex flex-wrap gap-2">
-                {project.tools.map((tool) => (
-                  <span key={tool} className="px-3 py-1 bg-secondary rounded-full text-sm">
-                    {tool}
-                  </span>
+            {/* Role & Tools */}
+            <section id="role" className="mb-16 scroll-mt-24 animate-fade-up [animation-delay:200ms]">
+              <h2 className="text-2xl font-semibold mb-6">Role & Tools</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                  <h3 className="text-lg font-medium mb-4">Role</h3>
+                  <p className="text-muted-foreground">{project.role}</p>
+                  <p className="text-muted-foreground mt-2">{project.timeline}</p>
+                </div>
+                <div>
+                  <h3 className="text-lg font-medium mb-4">Tools Used</h3>
+                  <div className="flex flex-wrap gap-2">
+                    {project.tools.map((tool) => (
+                      <span key={tool} className="px-3 py-1 bg-secondary rounded-full text-sm">
+                        {tool}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            {/* Challenges & Solutions */}
+            <section id="challenges" className="mb-16 scroll-mt-24 animate-fade-up [animation-delay:400ms]">
+              <h2 className="text-2xl font-semibold mb-6">Challenges & Solutions</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                  <h3 className="text-lg font-medium mb-4">Key Challenges</h3>
+                  <ul className="space-y-4">
+                    {project.challenges.map((challenge, index) => (
+                      <li key={index} className="flex items-start p-4 bg-muted rounded-lg">
+                        <span className="text-muted-foreground">{challenge}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div>
+                  <h3 className="text-lg font-medium mb-4">Solutions</h3>
+                  <ul className="space-y-4">
+                    {project.solutions.map((solution, index) => (
+                      <li key={index} className="flex items-start p-4 bg-muted rounded-lg">
+                        <span className="text-muted-foreground">{solution}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </section>
+
+            {/* Image Gallery */}
+            <section id="gallery" className="mb-16 scroll-mt-24 animate-fade-up [animation-delay:600ms]">
+              <h2 className="text-2xl font-semibold mb-6">Project Gallery</h2>
+              <div className="grid grid-cols-2 gap-4">
+                {project.images.map((image, index) => (
+                  <button
+                    key={index}
+                    className="relative aspect-video rounded-lg overflow-hidden hover:opacity-90 transition-opacity focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                    onClick={() => setSelectedImage(image)}
+                    aria-label={`View ${project.title} screenshot ${index + 1}`}
+                  >
+                    <img
+                      src={image}
+                      alt={`${project.title} screenshot ${index + 1}`}
+                      className="w-full h-full object-cover"
+                      loading="lazy"
+                    />
+                  </button>
                 ))}
               </div>
-            </div>
-          </div>
-        </section>
+            </section>
 
-        {/* Challenges & Solutions */}
-        <section className="mb-16">
-          <h2 className="text-2xl font-semibold mb-6">Challenges & Solutions</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div>
-              <h3 className="text-lg font-medium mb-4">Challenges</h3>
+            {/* Outcomes */}
+            <section id="outcomes" className="mb-16 scroll-mt-24 animate-fade-up [animation-delay:800ms]">
+              <h2 className="text-2xl font-semibold mb-6">Outcomes</h2>
               <ul className="space-y-4">
-                {project.challenges.map((challenge, index) => (
-                  <li key={index} className="flex items-start">
-                    <span className="mr-4">•</span>
-                    <span className="text-muted-foreground">{challenge}</span>
+                {project.outcomes.map((outcome, index) => (
+                  <li key={index} className="flex items-start p-4 bg-muted rounded-lg">
+                    <span className="text-muted-foreground">{outcome}</span>
                   </li>
                 ))}
               </ul>
-            </div>
-            <div>
-              <h3 className="text-lg font-medium mb-4">Solutions</h3>
-              <ul className="space-y-4">
-                {project.solutions.map((solution, index) => (
-                  <li key={index} className="flex items-start">
-                    <span className="mr-4">•</span>
-                    <span className="text-muted-foreground">{solution}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            </section>
           </div>
-        </section>
 
-        {/* Image Gallery */}
-        <section className="mb-16">
-          <h2 className="text-2xl font-semibold mb-6">Project Gallery</h2>
-          <div className="grid grid-cols-2 gap-4">
-            {project.images.map((image, index) => (
-              <button
-                key={index}
-                className="relative aspect-video rounded-lg overflow-hidden hover:opacity-90 transition-opacity"
-                onClick={() => setSelectedImage(image)}
-              >
-                <img
-                  src={image}
-                  alt={`${project.title} screenshot ${index + 1}`}
-                  className="w-full h-full object-cover"
-                />
-              </button>
-            ))}
-          </div>
-        </section>
-
-        {/* Outcomes */}
-        <section className="mb-16">
-          <h2 className="text-2xl font-semibold mb-6">Outcomes</h2>
-          <ul className="space-y-4">
-            {project.outcomes.map((outcome, index) => (
-              <li key={index} className="flex items-start">
-                <span className="mr-4">•</span>
-                <span className="text-muted-foreground">{outcome}</span>
-              </li>
-            ))}
-          </ul>
-        </section>
+          <CaseStudyNav />
+        </div>
       </div>
 
       {/* Lightbox */}
@@ -235,12 +247,23 @@ const CaseStudy = () => {
         <div
           className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4"
           onClick={() => setSelectedImage(null)}
+          onKeyDown={(e) => e.key === 'Escape' && setSelectedImage(null)}
+          role="dialog"
+          aria-label="Image preview"
+          tabIndex={-1}
         >
           <img
             src={selectedImage}
             alt="Full size preview"
             className="max-w-full max-h-[90vh] object-contain"
           />
+          <button
+            className="absolute top-4 right-4 text-white hover:text-white/80 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+            onClick={() => setSelectedImage(null)}
+            aria-label="Close preview"
+          >
+            <ArrowLeft className="h-6 w-6 transform rotate-90" />
+          </button>
         </div>
       )}
     </div>
