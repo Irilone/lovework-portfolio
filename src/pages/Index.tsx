@@ -93,7 +93,7 @@ const projects: Project[] = [
       "/lovable-uploads/cba00f4b-0405-4cef-96d9-e22ffa995c8b.png",
       "/lovable-uploads/220c85c8-b596-4c6c-bd2b-b60a845a0508.png"
     ],
-    profileImage: "/lovable-uploads/papyrus-2papyrus-logo.jpeg",
+    profileImage: "/lovable-uploads/04ccfbbf-6214-461d-bc3b-8d158ece3d6a.png",
     slug: "papyrus"
   },
   {
@@ -105,7 +105,7 @@ const projects: Project[] = [
       "/lovable-uploads/03237c2d-8d62-42fb-9a7f-5564be5e06ba.png",
       "/lovable-uploads/b1497a8d-0417-448d-925d-4f7b20d622dc.png"
     ],
-    profileImage: "/lovable-uploads/sos-1sosalarm.jpeg",
+    profileImage: "/lovable-uploads/466ef9a3-c93b-4771-86ad-2fa8866f7970.png",
     slug: "sos-alarm"
   },
   {
@@ -117,7 +117,7 @@ const projects: Project[] = [
       "/lovable-uploads/46e75da5-478a-4369-aa20-43942beef716.png",
       "/lovable-uploads/6bbbdb76-96ca-4062-afe4-faf20078abdf.png"
     ],
-    profileImage: "/lovable-uploads/Profile.jpeg",
+    profileImage: "/lovable-uploads/22be8763-6688-4c2c-a05f-5fd55da48025.png",
     slug: "solace"
   },
 ];
