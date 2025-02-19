@@ -113,6 +113,7 @@ const projects: Project[] = [
     title: "Papyrus",
     description: "Enhancing academic research accessibility through intuitive interface design.",
     images: [
+      "/lovable-uploads/Papyrus-projectcard-img.png",
       "/lovable-uploads/papyrus-1-papyrus.png",
       "/lovable-uploads/papyrus-2-challenge.png",
       "/lovable-uploads/papyrus-3-annotations.png"
@@ -124,6 +125,7 @@ const projects: Project[] = [
     title: "SOS Alarm",
     description: "Optimizing emergency response workflows through cognitive ergonomics.",
     images: [
+      "/lovable-uploads/SOSALArm-projectcard-img.png",
       "/lovable-uploads/sos-1-helpseekercase.png",
       "/lovable-uploads/sos-2-gtk.png",
       "/lovable-uploads/sos-3-solution.png"
@@ -135,11 +137,12 @@ const projects: Project[] = [
     title: "Solace",
     description: "A mental health app for trauma recovery, leveraging AI-driven therapeutic interactions.",
     images: [
+      "/lovable-uploads/Solace-projectcard-img.jpeg",
       "/lovable-uploads/solace-1-onboarding.png",
       "/lovable-uploads/solace-2-home.png",
       "/lovable-uploads/solace-3-form.png"
     ],
-    profileImage: "/lovable-uploads/",
+    profileImage: "/lovable-uploads/Solace-projectcard-img.jpeg",
     slug: "solace"
   },
 ];
