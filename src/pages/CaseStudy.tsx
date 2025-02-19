@@ -1,9 +1,11 @@
-
-import { ArrowLeft } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import CaseStudyNav from "@/components/CaseStudyNav";
+import Hero from "@/components/case-study/Hero";
+import RoleSection from "@/components/case-study/RoleSection";
+import ProcessSection from "@/components/case-study/ProcessSection";
+import GallerySection from "@/components/case-study/GallerySection";
+import OutcomesSection from "@/components/case-study/OutcomesSection";
+import SideNavigation from "@/components/case-study/SideNavigation";
 
 const projects = {
   solace: {
@@ -113,40 +115,15 @@ const CaseStudy = () => {
 
   return (
     <div className="min-h-screen w-full bg-background">
-      {/* Hero Section with Parallax Effect */}
-      <div className="relative h-[80vh] w-full overflow-hidden">
-        <img
-          src={project.images[0]}
-          alt={project.title}
-          className="w-full h-full object-cover"
-          fetchPriority="high"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/25 to-background">
-          <div className="container mx-auto px-6 h-full flex flex-col justify-end pb-24">
-            <Button
-              variant="ghost"
-              size="icon"
-              className="absolute top-6 left-6 text-white hover:bg-white/20"
-              onClick={() => navigate('/')}
-              aria-label="Back to home"
-            >
-              <ArrowLeft className="h-5 w-5" />
-            </Button>
-            <h1 className="text-4xl md:text-6xl font-bold text-white mb-4 animate-fade-up">
-              {project.title}
-            </h1>
-            <p className="text-xl text-white/80 max-w-2xl animate-fade-up [animation-delay:200ms]">
-              {project.subtitle}
-            </p>
-          </div>
-        </div>
-      </div>
+      <Hero 
+        title={project.title}
+        subtitle={project.subtitle}
+        coverImage={project.images[0]}
+      />
 
-      {/* Content */}
       <div className="container mx-auto px-6">
         <div className="flex gap-12 py-16">
           <div className="flex-1 max-w-4xl space-y-24">
-            {/* Overview */}
             <section 
               id="overview" 
               className="scroll-mt-24 animate-fade-up"
@@ -154,141 +131,34 @@ const CaseStudy = () => {
             >
               <h2 className="text-3xl font-semibold mb-8">Overview</h2>
               <div className="prose dark:prose-invert max-w-none">
-                <p className="text-xl text-muted-foreground leading-relaxed">{project.overview}</p>
+                <p className="text-xl text-muted-foreground leading-relaxed">
+                  {project.overview}
+                </p>
               </div>
             </section>
 
-            {/* Role & Timeline */}
-            <section 
-              id="role" 
-              className="scroll-mt-24 animate-fade-up [animation-delay:200ms]"
-              onFocus={() => setActiveSection("role")}
-            >
-              <h2 className="text-3xl font-semibold mb-8">Role & Timeline</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-                <div className="space-y-4">
-                  <h3 className="text-xl font-medium">Role</h3>
-                  <p className="text-muted-foreground">{project.role}</p>
-                  <p className="text-muted-foreground">{project.timeline}</p>
-                </div>
-                <div className="space-y-4">
-                  <h3 className="text-xl font-medium">Tools Used</h3>
-                  <div className="flex flex-wrap gap-2">
-                    {project.tools.map((tool) => (
-                      <span 
-                        key={tool} 
-                        className="px-4 py-2 bg-secondary rounded-full text-sm font-medium"
-                      >
-                        {tool}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </section>
+            <RoleSection 
+              role={project.role}
+              timeline={project.timeline}
+              tools={project.tools}
+            />
 
-            {/* Process */}
-            <section 
-              id="process" 
-              className="scroll-mt-24 animate-fade-up [animation-delay:400ms]"
-              onFocus={() => setActiveSection("process")}
-            >
-              <h2 className="text-3xl font-semibold mb-8">Process</h2>
-              <div className="space-y-12">
-                <div>
-                  <h3 className="text-xl font-medium mb-6">The Challenge</h3>
-                  <ul className="space-y-4">
-                    {project.challenges.map((challenge, index) => (
-                      <li 
-                        key={index} 
-                        className="p-6 bg-secondary rounded-2xl text-secondary-foreground"
-                      >
-                        {challenge}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div>
-                  <h3 className="text-xl font-medium mb-6">The Solution</h3>
-                  <ul className="space-y-4">
-                    {project.solutions.map((solution, index) => (
-                      <li 
-                        key={index} 
-                        className="p-6 bg-secondary rounded-2xl text-secondary-foreground"
-                      >
-                        {solution}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            </section>
+            <ProcessSection 
+              challenges={project.challenges}
+              solutions={project.solutions}
+            />
 
-            {/* Gallery */}
-            <section 
-              id="gallery" 
-              className="scroll-mt-24 animate-fade-up [animation-delay:600ms]"
-              onFocus={() => setActiveSection("gallery")}
-            >
-              <h2 className="text-3xl font-semibold mb-8">Visual Journey</h2>
-              <div className="space-y-8">
-                {project.images.map((image, index) => (
-                  <figure key={index} className="space-y-4">
-                    <img
-                      src={image}
-                      alt={`${project.title} - Design phase ${index + 1}`}
-                      className="w-full rounded-2xl shadow-lg"
-                      loading={index === 0 ? "eager" : "lazy"}
-                    />
-                    <figcaption className="text-sm text-muted-foreground text-center">
-                      Phase {index + 1} of the design process
-                    </figcaption>
-                  </figure>
-                ))}
-              </div>
-            </section>
+            <GallerySection 
+              title={project.title}
+              images={project.images}
+            />
 
-            {/* Outcomes */}
-            <section 
-              id="outcomes" 
-              className="scroll-mt-24 animate-fade-up [animation-delay:800ms]"
-              onFocus={() => setActiveSection("outcomes")}
-            >
-              <h2 className="text-3xl font-semibold mb-8">Outcomes</h2>
-              <div className="grid gap-6">
-                {project.outcomes.map((outcome, index) => (
-                  <div 
-                    key={index}
-                    className="p-6 bg-secondary rounded-2xl text-secondary-foreground"
-                  >
-                    {outcome}
-                  </div>
-                ))}
-              </div>
-            </section>
+            <OutcomesSection 
+              outcomes={project.outcomes}
+            />
           </div>
 
-          {/* Side Navigation */}
-          <aside className="hidden lg:block sticky top-24 h-fit">
-            <nav 
-              className="space-y-4 text-sm border-l border-border pl-8"
-              aria-label="Case study sections"
-            >
-              {["overview", "role", "process", "gallery", "outcomes"].map((section) => (
-                <a
-                  key={section}
-                  href={`#${section}`}
-                  className={`block py-2 transition-colors ${
-                    activeSection === section
-                      ? "text-foreground font-medium border-l-2 border-foreground -ml-[33px] pl-8"
-                      : "text-muted-foreground hover:text-foreground"
-                  }`}
-                >
-                  {section.charAt(0).toUpperCase() + section.slice(1)}
-                </a>
-              ))}
-            </nav>
-          </aside>
+          <SideNavigation activeSection={activeSection} />
         </div>
       </div>
     </div>
