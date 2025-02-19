@@ -8,45 +8,49 @@ import ErrorBoundary from "@/components/ErrorBoundary";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import CaseStudy from "./pages/CaseStudy";
+import { useState } from "react";
 
-const queryClient = new QueryClient();
+const App = () => {
+  // Move QueryClient initialization inside component
+  const [queryClient] = useState(() => new QueryClient());
 
-// Register service worker
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/service-worker.js')
-      .then(registration => {
-        console.log('SW registered:', registration);
-      })
-      .catch(error => {
-        console.log('SW registration failed:', error);
-      });
-  });
-}
+  // Register service worker
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/service-worker.js')
+        .then(registration => {
+          console.log('SW registered:', registration);
+        })
+        .catch(error => {
+          console.log('SW registration failed:', error);
+        });
+    });
+  }
 
-const App = () => (
-  <ErrorBoundary>
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        {/* Skip Link for Keyboard Users */}
-        <a href="#main-content" className="skip-link">
-          Skip to main content
-        </a>
-        
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <main id="main-content">
-            <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/case-study/:id" element={<CaseStudy />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </main>
-        </BrowserRouter>
-      </TooltipProvider>
-    </QueryClientProvider>
-  </ErrorBoundary>
-);
+  return (
+    <ErrorBoundary>
+      <QueryClientProvider client={queryClient}>
+        <TooltipProvider>
+          {/* Skip Link for Keyboard Users */}
+          <a href="#main-content" className="skip-link">
+            Skip to main content
+          </a>
+          
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <main id="main-content">
+              <Routes>
+                <Route path="/" element={<Index />} />
+                <Route path="/case-study/:id" element={<CaseStudy />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </main>
+          </BrowserRouter>
+        </TooltipProvider>
+      </QueryClientProvider>
+    </ErrorBoundary>
+  );
+};
 
 export default App;
