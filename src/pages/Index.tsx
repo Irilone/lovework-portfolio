@@ -85,17 +85,6 @@ const Index = () => {
 
 const projects: Project[] = [
   {
-    title: "Solace",
-    description: "A mental health app for trauma recovery, leveraging AI-driven therapeutic interactions.",
-    images: [
-      "/lovable-uploads/971dd684-5ccc-41dc-b7b3-8d785ef6027a.png",
-      "/lovable-uploads/a9cb4d78-8b3e-4f8a-ba8f-a1618fc4e776.png",
-      "/lovable-uploads/46e75da5-478a-4369-aa20-43942beef716.png",
-      "/lovable-uploads/6bbbdb76-96ca-4062-afe4-faf20078abdf.png"
-    ],
-    slug: "solace"
-  },
-  {
     title: "Papyrus",
     description: "Enhancing academic research accessibility through intuitive interface design.",
     images: [
@@ -104,6 +93,7 @@ const projects: Project[] = [
       "/lovable-uploads/cba00f4b-0405-4cef-96d9-e22ffa995c8b.png",
       "/lovable-uploads/220c85c8-b596-4c6c-bd2b-b60a845a0508.png"
     ],
+    profileImage: "/lovable-uploads/papyrus-2papyrus-logo.jpeg",
     slug: "papyrus"
   },
   {
@@ -115,7 +105,20 @@ const projects: Project[] = [
       "/lovable-uploads/03237c2d-8d62-42fb-9a7f-5564be5e06ba.png",
       "/lovable-uploads/b1497a8d-0417-448d-925d-4f7b20d622dc.png"
     ],
+    profileImage: "/lovable-uploads/sos-1sosalarm.jpeg",
     slug: "sos-alarm"
+  },
+  {
+    title: "Solace",
+    description: "A mental health app for trauma recovery, leveraging AI-driven therapeutic interactions.",
+    images: [
+      "/lovable-uploads/971dd684-5ccc-41dc-b7b3-8d785ef6027a.png",
+      "/lovable-uploads/a9cb4d78-8b3e-4f8a-ba8f-a1618fc4e776.png",
+      "/lovable-uploads/46e75da5-478a-4369-aa20-43942beef716.png",
+      "/lovable-uploads/6bbbdb76-96ca-4062-afe4-faf20078abdf.png"
+    ],
+    profileImage: "/lovable-uploads/Profile.jpeg",
+    slug: "solace"
   },
 ];
 

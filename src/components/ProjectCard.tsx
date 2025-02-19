@@ -41,13 +41,22 @@ const ProjectCard = ({ project, onViewCaseStudy }: ProjectCardProps) => {
             />
           </div>
           <div className="p-6 md:p-8">
-            <h3 
-              id={`project-${project.slug}-title`}
-              className="text-xl font-semibold mb-3"
-            >
-              {project.title}
-            </h3>
-            <p className="text-muted-foreground mb-6">
+            <div className="flex items-center gap-4 mb-4">
+              <ImageWithFallback
+                src={project.profileImage}
+                alt={`${project.title} profile`}
+                className="w-12 h-12 rounded-full object-cover"
+                width={48}
+                height={48}
+              />
+              <h3 
+                id={`project-${project.slug}-title`}
+                className="text-xl font-semibold"
+              >
+                {project.title}
+              </h3>
+            </div>
+            <p className="text-muted-foreground">
               {project.description}
             </p>
           </div>
@@ -77,6 +86,7 @@ const ProjectCard = ({ project, onViewCaseStudy }: ProjectCardProps) => {
                 className="w-full rounded-lg shadow-md"
                 width={1200}
                 height={675}
+                allowZoom
               />
             ))}
           </div>
