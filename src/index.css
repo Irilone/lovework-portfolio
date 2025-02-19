@@ -81,6 +81,17 @@
     @apply bg-background text-foreground font-inter antialiased;
   }
 
+  /* Improved focus styles for better accessibility */
+  :focus-visible {
+    @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
+  }
+
+  /* Ensure skip links are visible when focused */
+  .skip-link {
+    @apply sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-background focus:text-foreground focus:shadow-lg;
+  }
+
+  /* Reduced motion preferences */
   @media (prefers-reduced-motion: reduce) {
     * {
       animation-duration: 0.01ms !important;
@@ -88,11 +99,69 @@
       transition-duration: 0.01ms !important;
       scroll-behavior: auto !important;
     }
+
+    .animate-fade-up,
+    .animate-fade-down,
+    .animate-scale-up,
+    .animate-scale-down {
+      animation: none !important;
+      transform: none !important;
+    }
   }
 }
 
 @layer utilities {
   .font-inter {
     font-family: 'Inter', sans-serif;
+  }
+
+  /* GPU-accelerated animations */
+  .animate-fade-up {
+    animation: fade-up 0.5s ease-out;
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+  }
+
+  .animate-fade-down {
+    animation: fade-down 0.5s ease-out;
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+  }
+
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fade-down {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* High contrast mode improvements */
+  @media (prefers-contrast: more) {
+    .text-muted-foreground {
+      @apply text-foreground opacity-90;
+    }
+
+    .border {
+      @apply border-2;
+    }
+
+    .focus-visible\:ring {
+      @apply ring-4;
+    }
   }
 }

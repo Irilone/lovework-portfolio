@@ -13,14 +13,21 @@ const queryClient = new QueryClient();
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
+      {/* Skip Link for Keyboard Users */}
+      <a href="#main-content" className="skip-link">
+        Skip to main content
+      </a>
+      
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/case-study/:id" element={<CaseStudy />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <main id="main-content">
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/case-study/:id" element={<CaseStudy />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </main>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
