@@ -11,8 +11,8 @@ const About = () => {
           <div className="relative group">
             <div className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden bg-neutral-100 dark:bg-neutral-900 ring-2 ring-neutral-200 dark:ring-neutral-800">
               <img
-                src="/lovable-uploads/b87c4c8e-aa5c-463d-b11d-6f5e6a8e36a4.png"
-                alt="Dorian Tykesson"
+                src="/lovable-uploads/Profile.jpeg"
+                alt="Profile picture"
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                 loading="eager"
                 fetchPriority="high"
