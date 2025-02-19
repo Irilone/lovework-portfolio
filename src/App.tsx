@@ -8,15 +8,13 @@ import ErrorBoundary from "@/components/ErrorBoundary";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import CaseStudy from "./pages/CaseStudy";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-const App = () => {
-  // Move QueryClient initialization inside component
+function App() {
   const [queryClient] = useState(() => new QueryClient());
 
-  // Register service worker
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
+  useEffect(() => {
+    if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('/service-worker.js')
         .then(registration => {
           console.log('SW registered:', registration);
@@ -24,8 +22,8 @@ const App = () => {
         .catch(error => {
           console.log('SW registration failed:', error);
         });
-    });
-  }
+    }
+  }, []);
 
   return (
     <ErrorBoundary>
@@ -51,6 +49,6 @@ const App = () => {
       </QueryClientProvider>
     </ErrorBoundary>
   );
-};
+}
 
 export default App;
