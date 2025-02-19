@@ -1,8 +1,16 @@
+
 import { ArrowRight, Mail, Github, Linkedin, Sun, Moon } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 const Index = () => {
   const [mounted, setMounted] = useState(false);
@@ -35,36 +43,40 @@ const Index = () => {
       </Button>
       
       {/* Hero Section */}
-      <section className="min-h-[90vh] flex items-center justify-center px-6 bg-gradient-to-b from-background to-secondary/20">
-        <div className="text-center space-y-8 animate-fade-up">
-          <span className="text-sm uppercase tracking-widest text-muted-foreground">
+      <section className="min-h-[90vh] flex items-center justify-center px-4 md:px-6 bg-gradient-to-b from-background to-secondary/20">
+        <div className="text-center space-y-6 md:space-y-8 animate-fade-up">
+          <span className="text-xs md:text-sm uppercase tracking-widest text-muted-foreground">
             Interaction Designer & HCI Specialist
           </span>
-          <h1 className="text-5xl md:text-7xl font-bold tracking-tight">
+          <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold tracking-tight">
             Dorian Tykesson
           </h1>
-          <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-lg md:text-xl lg:text-2xl text-muted-foreground max-w-2xl mx-auto">
             Blending cognitive science with human-centered design
           </p>
-          <p className="text-lg text-muted-foreground max-w-xl mx-auto">
+          <p className="text-base md:text-lg text-muted-foreground max-w-xl mx-auto">
             Creating intuitive and impactful digital experiences through research-driven design
           </p>
-          <Button size="lg" className="mt-8 rounded-full" onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}>
+          <Button 
+            size="lg" 
+            className="mt-6 md:mt-8 rounded-full" 
+            onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
+          >
             View Work <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
         </div>
       </section>
 
       {/* About Section */}
-      <section id="about" className="py-24 px-6 bg-soft-gray dark:bg-soft-black">
+      <section id="about" className="py-16 md:py-24 px-4 md:px-6 bg-soft-gray dark:bg-soft-black">
         <div className="container mx-auto max-w-4xl">
-          <h2 className="text-3xl font-bold mb-12">About</h2>
-          <div className="space-y-8">
-            <p className="text-lg text-muted-foreground leading-relaxed">
+          <h2 className="text-2xl md:text-3xl font-bold mb-8 md:mb-12">About</h2>
+          <div className="space-y-6 md:space-y-8">
+            <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
               Based in Gothenburg, Sweden, I specialize in creating intuitive digital experiences
               through the lens of cognitive science and human-computer interaction.
             </p>
-            <ul className="space-y-4 text-lg text-muted-foreground">
+            <ul className="space-y-3 md:space-y-4 text-base md:text-lg text-muted-foreground">
               <li className="flex items-start">
                 <span className="mr-4">•</span>
                 <span>MSc in Interaction Design & Technologies from Chalmers University</span>
@@ -87,10 +99,12 @@ const Index = () => {
       </section>
 
       {/* Projects Section */}
-      <section id="projects" className="py-24 px-6">
+      <section id="projects" className="py-16 md:py-24 px-4 md:px-6">
         <div className="container mx-auto">
-          <h2 className="text-3xl font-bold mb-12">Selected Work</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <h2 className="text-2xl md:text-3xl font-bold mb-8 md:mb-12">Selected Work</h2>
+          
+          {/* Desktop Grid */}
+          <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {projects.map((project, i) => (
               <div
                 key={i}
@@ -101,9 +115,10 @@ const Index = () => {
                     src={project.images[0]}
                     alt={project.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
                   />
                 </div>
-                <div className="p-8">
+                <div className="p-6 md:p-8">
                   <h3 className="text-xl font-semibold mb-3">{project.title}</h3>
                   <p className="text-muted-foreground mb-6">
                     {project.description}
@@ -119,14 +134,51 @@ const Index = () => {
               </div>
             ))}
           </div>
+
+          {/* Mobile Carousel */}
+          <div className="md:hidden">
+            <Carousel className="w-full">
+              <CarouselContent>
+                {projects.map((project, i) => (
+                  <CarouselItem key={i}>
+                    <div className="bg-white dark:bg-soft-black rounded-2xl overflow-hidden shadow-sm">
+                      <div className="aspect-video bg-neutral-100 dark:bg-neutral-900 overflow-hidden">
+                        <img
+                          src={project.images[0]}
+                          alt={project.title}
+                          className="w-full h-full object-cover"
+                          loading="lazy"
+                        />
+                      </div>
+                      <div className="p-6">
+                        <h3 className="text-xl font-semibold mb-3">{project.title}</h3>
+                        <p className="text-muted-foreground mb-6">
+                          {project.description}
+                        </p>
+                        <Button 
+                          variant="ghost" 
+                          className="rounded-full px-0 hover:px-4 transition-all duration-300"
+                          onClick={() => navigate(`/case-study/${project.slug}`)}
+                        >
+                          View Case Study <ArrowRight className="ml-2 h-4 w-4" />
+                        </Button>
+                      </div>
+                    </div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious className="hidden md:flex" />
+              <CarouselNext className="hidden md:flex" />
+            </Carousel>
+          </div>
         </div>
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-24 px-6 bg-soft-gray dark:bg-soft-black">
+      <section id="contact" className="py-16 md:py-24 px-4 md:px-6 bg-soft-gray dark:bg-soft-black">
         <div className="container mx-auto max-w-4xl text-center">
-          <h2 className="text-3xl font-bold mb-8">Get in Touch</h2>
-          <p className="text-lg text-muted-foreground mb-12">
+          <h2 className="text-2xl md:text-3xl font-bold mb-6 md:mb-8">Get in Touch</h2>
+          <p className="text-base md:text-lg text-muted-foreground mb-8 md:mb-12">
             Available for select projects and research collaborations.
           </p>
           <div className="flex flex-col items-center space-y-6">
@@ -147,8 +199,8 @@ const Index = () => {
       </section>
 
       {/* Footer */}
-      <footer className="py-12 px-6">
-        <div className="container mx-auto max-w-4xl text-center text-muted-foreground">
+      <footer className="py-8 md:py-12 px-4 md:px-6">
+        <div className="container mx-auto max-w-4xl text-center text-muted-foreground text-sm md:text-base">
           <p>© 2024 Dorian Tykesson. All rights reserved.</p>
         </div>
       </footer>
