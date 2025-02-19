@@ -2,7 +2,6 @@
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
-import { motion } from "framer-motion";
 import {
   Dialog,
   DialogContent,
@@ -10,7 +9,6 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Project } from "@/types/project";
-import ImageWithFallback from "./ImageWithFallback";
 
 interface ProjectCardProps {
   project: Project;
@@ -21,56 +19,46 @@ const ProjectCard = ({ project, onViewCaseStudy }: ProjectCardProps) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: 20 }}
-      className="group bg-white dark:bg-soft-black rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300"
-      role="article"
-      aria-labelledby={`project-${project.slug}-title`}
-    >
-      <button
-        className="w-full text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-        onClick={() => setIsDialogOpen(true)}
-        aria-label={`View details of ${project.title}`}
+    <>
+      <div
+        className="group bg-white dark:bg-soft-black rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300"
+        role="article"
+        aria-labelledby={`project-${project.slug}-title`}
       >
-        <div className="aspect-video bg-neutral-100 dark:bg-neutral-900 overflow-hidden">
-          <ImageWithFallback
-            src={project.images[0]}
-            alt={`Preview of ${project.title}`}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-            sources={[
-              {
-                srcSet: `${project.images[0]}?w=800 800w, ${project.images[0]}?w=1200 1200w`,
-                media: '(min-width: 768px)',
-              },
-              {
-                srcSet: `${project.images[0]}?w=400 400w, ${project.images[0]}?w=600 600w`,
-                media: '(max-width: 767px)',
-              },
-            ]}
-          />
-        </div>
-        <div className="p-6 md:p-8">
-          <h3 
-            id={`project-${project.slug}-title`}
-            className="text-xl font-semibold mb-3"
-          >
-            {project.title}
-          </h3>
-          <p className="text-muted-foreground mb-6">
-            {project.description}
-          </p>
-        </div>
-      </button>
-      <div className="px-6 md:px-8 pb-6 md:pb-8">
-        <Button 
-          variant="ghost" 
-          className="rounded-full px-0 hover:px-4 transition-all duration-300"
-          onClick={() => onViewCaseStudy(project.slug)}
+        <button
+          className="w-full text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+          onClick={() => setIsDialogOpen(true)}
+          aria-label={`View details of ${project.title}`}
         >
-          View Case Study <ArrowRight className="ml-2 h-4 w-4" />
-        </Button>
+          <div className="aspect-video bg-neutral-100 dark:bg-neutral-900 overflow-hidden">
+            <img
+              src={project.images[0]}
+              alt={`Preview of ${project.title}`}
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              loading="lazy"
+            />
+          </div>
+          <div className="p-6 md:p-8">
+            <h3 
+              id={`project-${project.slug}-title`}
+              className="text-xl font-semibold mb-3"
+            >
+              {project.title}
+            </h3>
+            <p className="text-muted-foreground mb-6">
+              {project.description}
+            </p>
+          </div>
+        </button>
+        <div className="px-6 md:px-8 pb-6 md:pb-8">
+          <Button 
+            variant="ghost" 
+            className="rounded-full px-0 hover:px-4 transition-all duration-300"
+            onClick={() => onViewCaseStudy(project.slug)}
+          >
+            View Case Study <ArrowRight className="ml-2 h-4 w-4" />
+          </Button>
+        </div>
       </div>
 
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
@@ -80,21 +68,12 @@ const ProjectCard = ({ project, onViewCaseStudy }: ProjectCardProps) => {
           </DialogHeader>
           <div className="grid gap-4">
             {project.images.map((image, index) => (
-              <ImageWithFallback
+              <img
                 key={index}
                 src={image}
                 alt={`${project.title} showcase image ${index + 1}`}
                 className="w-full rounded-lg shadow-md"
-                sources={[
-                  {
-                    srcSet: `${image}?w=800 800w, ${image}?w=1200 1200w`,
-                    media: '(min-width: 768px)',
-                  },
-                  {
-                    srcSet: `${image}?w=400 400w, ${image}?w=600 600w`,
-                    media: '(max-width: 767px)',
-                  },
-                ]}
+                loading="lazy"
               />
             ))}
           </div>
@@ -111,7 +90,7 @@ const ProjectCard = ({ project, onViewCaseStudy }: ProjectCardProps) => {
           </div>
         </DialogContent>
       </Dialog>
-    </motion.div>
+    </>
   );
 };
 

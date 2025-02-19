@@ -4,52 +4,33 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { AnimatePresence } from "framer-motion";
-import ErrorBoundary from "@/components/ErrorBoundary";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import CaseStudy from "./pages/CaseStudy";
 
 const queryClient = new QueryClient();
 
-// Register service worker
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/service-worker.js')
-      .then(registration => {
-        console.log('SW registered:', registration);
-      })
-      .catch(error => {
-        console.log('SW registration failed:', error);
-      });
-  });
-}
-
 const App = () => (
-  <ErrorBoundary>
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        {/* Skip Link for Keyboard Users */}
-        <a href="#main-content" className="skip-link">
-          Skip to main content
-        </a>
-        
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <AnimatePresence mode="wait">
-            <main id="main-content">
-              <Routes>
-                <Route path="/" element={<Index />} />
-                <Route path="/case-study/:id" element={<CaseStudy />} />
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </main>
-          </AnimatePresence>
-        </BrowserRouter>
-      </TooltipProvider>
-    </QueryClientProvider>
-  </ErrorBoundary>
+  <QueryClientProvider client={queryClient}>
+    <TooltipProvider>
+      {/* Skip Link for Keyboard Users */}
+      <a href="#main-content" className="skip-link">
+        Skip to main content
+      </a>
+      
+      <Toaster />
+      <Sonner />
+      <BrowserRouter>
+        <main id="main-content">
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/case-study/:id" element={<CaseStudy />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </main>
+      </BrowserRouter>
+    </TooltipProvider>
+  </QueryClientProvider>
 );
 
 export default App;
