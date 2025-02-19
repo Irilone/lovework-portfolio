@@ -17,10 +17,9 @@ const projects = {
     timeline: "6 months (2024)",
     tools: ["Figma", "React", "TailwindCSS", "Python"],
     images: [
-      "/lovable-uploads/971dd684-5ccc-41dc-b7b3-8d785ef6027a.png",
-      "/lovable-uploads/a9cb4d78-8b3e-4f8a-ba8f-a1618fc4e776.png",
-      "/lovable-uploads/46e75da5-478a-4369-aa20-43942beef716.png",
-      "/lovable-uploads/6bbbdb76-96ca-4062-afe4-faf20078abdf.png"
+      "/lovable-uploads/solace-1-onboarding.png",
+      "/lovable-uploads/solace-2-home.png",
+      "/lovable-uploads/solace-3-form.png"
     ],
     challenges: [
       "Creating a safe and supportive digital environment for trauma survivors",
@@ -46,10 +45,9 @@ const projects = {
     timeline: "4 months (2023)",
     tools: ["Figma", "Framer", "React", "ElasticSearch"],
     images: [
-      "/lovable-uploads/5562aace-fd78-4cb5-80b1-2f1a103e0e6e.png",
-      "/lovable-uploads/a8be5969-52f7-4dcc-a5f5-d9732e6f197d.png",
-      "/lovable-uploads/cba00f4b-0405-4cef-96d9-e22ffa995c8b.png",
-      "/lovable-uploads/220c85c8-b596-4c6c-bd2b-b60a845a0508.png"
+      "/lovable-uploads/papyrus-1-papyrus.png",
+      "/lovable-uploads/papyrus-2-challenge.png",
+      "/lovable-uploads/papyrus-3-annotations.png"
     ],
     challenges: [
       "Complex information architecture requiring intuitive navigation",
@@ -75,10 +73,9 @@ const projects = {
     timeline: "5 months (2023)",
     tools: ["Figma", "ProtoPie", "React", "D3.js"],
     images: [
-      "/lovable-uploads/2c6840de-d4aa-4dec-b0fe-2bb2516843d8.png",
-      "/lovable-uploads/9cd69b84-30c0-4298-99f7-4457f6c78d22.png",
-      "/lovable-uploads/03237c2d-8d62-42fb-9a7f-5564be5e06ba.png",
-      "/lovable-uploads/b1497a8d-0417-448d-925d-4f7b20d622dc.png"
+      "/lovable-uploads/sos-1-helpseekercase.png",
+      "/lovable-uploads/sos-2-gtk.png",
+      "/lovable-uploads/sos-3-solution.png"
     ],
     challenges: [
       "Critical decision-making under high-pressure situations",
