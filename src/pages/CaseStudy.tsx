@@ -98,7 +98,7 @@ const projects = {
 const CaseStudy = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [activeSection, setActiveSection] = useState<string>("overview");
   
   const projectKey = id as keyof typeof projects;
   const project = projects[projectKey];
@@ -112,17 +112,17 @@ const CaseStudy = () => {
   if (!project) return null;
 
   return (
-    <div className="min-h-screen w-full">
-      {/* Hero Section */}
-      <div className="relative h-[60vh] w-full overflow-hidden">
+    <div className="min-h-screen w-full bg-background">
+      {/* Hero Section with Parallax Effect */}
+      <div className="relative h-[80vh] w-full overflow-hidden">
         <img
           src={project.images[0]}
           alt={project.title}
           className="w-full h-full object-cover"
           fetchPriority="high"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/50 to-transparent">
-          <div className="container mx-auto px-6 h-full flex flex-col justify-center">
+        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/25 to-background">
+          <div className="container mx-auto px-6 h-full flex flex-col justify-end pb-24">
             <Button
               variant="ghost"
               size="icon"
@@ -135,7 +135,7 @@ const CaseStudy = () => {
             <h1 className="text-4xl md:text-6xl font-bold text-white mb-4 animate-fade-up">
               {project.title}
             </h1>
-            <p className="text-xl text-white/80 animate-fade-up [animation-delay:200ms]">
+            <p className="text-xl text-white/80 max-w-2xl animate-fade-up [animation-delay:200ms]">
               {project.subtitle}
             </p>
           </div>
@@ -143,31 +143,42 @@ const CaseStudy = () => {
       </div>
 
       {/* Content */}
-      <div className="container mx-auto px-6 py-16">
-        <div className="flex gap-12">
-          <div className="flex-1 max-w-4xl">
+      <div className="container mx-auto px-6">
+        <div className="flex gap-12 py-16">
+          <div className="flex-1 max-w-4xl space-y-24">
             {/* Overview */}
-            <section id="overview" className="mb-16 scroll-mt-24 animate-fade-up">
-              <h2 className="text-2xl font-semibold mb-6">Overview</h2>
-              <div className="prose dark:prose-invert">
-                <p className="text-lg text-muted-foreground">{project.overview}</p>
+            <section 
+              id="overview" 
+              className="scroll-mt-24 animate-fade-up"
+              onFocus={() => setActiveSection("overview")}
+            >
+              <h2 className="text-3xl font-semibold mb-8">Overview</h2>
+              <div className="prose dark:prose-invert max-w-none">
+                <p className="text-xl text-muted-foreground leading-relaxed">{project.overview}</p>
               </div>
             </section>
 
-            {/* Role & Tools */}
-            <section id="role" className="mb-16 scroll-mt-24 animate-fade-up [animation-delay:200ms]">
-              <h2 className="text-2xl font-semibold mb-6">Role & Tools</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div>
-                  <h3 className="text-lg font-medium mb-4">Role</h3>
+            {/* Role & Timeline */}
+            <section 
+              id="role" 
+              className="scroll-mt-24 animate-fade-up [animation-delay:200ms]"
+              onFocus={() => setActiveSection("role")}
+            >
+              <h2 className="text-3xl font-semibold mb-8">Role & Timeline</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div className="space-y-4">
+                  <h3 className="text-xl font-medium">Role</h3>
                   <p className="text-muted-foreground">{project.role}</p>
-                  <p className="text-muted-foreground mt-2">{project.timeline}</p>
+                  <p className="text-muted-foreground">{project.timeline}</p>
                 </div>
-                <div>
-                  <h3 className="text-lg font-medium mb-4">Tools Used</h3>
+                <div className="space-y-4">
+                  <h3 className="text-xl font-medium">Tools Used</h3>
                   <div className="flex flex-wrap gap-2">
                     {project.tools.map((tool) => (
-                      <span key={tool} className="px-3 py-1 bg-secondary rounded-full text-sm">
+                      <span 
+                        key={tool} 
+                        className="px-4 py-2 bg-secondary rounded-full text-sm font-medium"
+                      >
                         {tool}
                       </span>
                     ))}
@@ -176,26 +187,36 @@ const CaseStudy = () => {
               </div>
             </section>
 
-            {/* Challenges & Solutions */}
-            <section id="challenges" className="mb-16 scroll-mt-24 animate-fade-up [animation-delay:400ms]">
-              <h2 className="text-2xl font-semibold mb-6">Challenges & Solutions</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {/* Process */}
+            <section 
+              id="process" 
+              className="scroll-mt-24 animate-fade-up [animation-delay:400ms]"
+              onFocus={() => setActiveSection("process")}
+            >
+              <h2 className="text-3xl font-semibold mb-8">Process</h2>
+              <div className="space-y-12">
                 <div>
-                  <h3 className="text-lg font-medium mb-4">Key Challenges</h3>
+                  <h3 className="text-xl font-medium mb-6">The Challenge</h3>
                   <ul className="space-y-4">
                     {project.challenges.map((challenge, index) => (
-                      <li key={index} className="flex items-start p-4 bg-muted rounded-lg">
-                        <span className="text-muted-foreground">{challenge}</span>
+                      <li 
+                        key={index} 
+                        className="p-6 bg-secondary rounded-2xl text-secondary-foreground"
+                      >
+                        {challenge}
                       </li>
                     ))}
                   </ul>
                 </div>
                 <div>
-                  <h3 className="text-lg font-medium mb-4">Solutions</h3>
+                  <h3 className="text-xl font-medium mb-6">The Solution</h3>
                   <ul className="space-y-4">
                     {project.solutions.map((solution, index) => (
-                      <li key={index} className="flex items-start p-4 bg-muted rounded-lg">
-                        <span className="text-muted-foreground">{solution}</span>
+                      <li 
+                        key={index} 
+                        className="p-6 bg-secondary rounded-2xl text-secondary-foreground"
+                      >
+                        {solution}
                       </li>
                     ))}
                   </ul>
@@ -203,69 +224,73 @@ const CaseStudy = () => {
               </div>
             </section>
 
-            {/* Image Gallery */}
-            <section id="gallery" className="mb-16 scroll-mt-24 animate-fade-up [animation-delay:600ms]">
-              <h2 className="text-2xl font-semibold mb-6">Project Gallery</h2>
-              <div className="grid grid-cols-2 gap-4">
+            {/* Gallery */}
+            <section 
+              id="gallery" 
+              className="scroll-mt-24 animate-fade-up [animation-delay:600ms]"
+              onFocus={() => setActiveSection("gallery")}
+            >
+              <h2 className="text-3xl font-semibold mb-8">Visual Journey</h2>
+              <div className="space-y-8">
                 {project.images.map((image, index) => (
-                  <button
-                    key={index}
-                    className="relative aspect-video rounded-lg overflow-hidden hover:opacity-90 transition-opacity focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-                    onClick={() => setSelectedImage(image)}
-                    aria-label={`View ${project.title} screenshot ${index + 1}`}
-                  >
+                  <figure key={index} className="space-y-4">
                     <img
                       src={image}
-                      alt={`${project.title} screenshot ${index + 1}`}
-                      className="w-full h-full object-cover"
-                      loading="lazy"
+                      alt={`${project.title} - Design phase ${index + 1}`}
+                      className="w-full rounded-2xl shadow-lg"
+                      loading={index === 0 ? "eager" : "lazy"}
                     />
-                  </button>
+                    <figcaption className="text-sm text-muted-foreground text-center">
+                      Phase {index + 1} of the design process
+                    </figcaption>
+                  </figure>
                 ))}
               </div>
             </section>
 
             {/* Outcomes */}
-            <section id="outcomes" className="mb-16 scroll-mt-24 animate-fade-up [animation-delay:800ms]">
-              <h2 className="text-2xl font-semibold mb-6">Outcomes</h2>
-              <ul className="space-y-4">
+            <section 
+              id="outcomes" 
+              className="scroll-mt-24 animate-fade-up [animation-delay:800ms]"
+              onFocus={() => setActiveSection("outcomes")}
+            >
+              <h2 className="text-3xl font-semibold mb-8">Outcomes</h2>
+              <div className="grid gap-6">
                 {project.outcomes.map((outcome, index) => (
-                  <li key={index} className="flex items-start p-4 bg-muted rounded-lg">
-                    <span className="text-muted-foreground">{outcome}</span>
-                  </li>
+                  <div 
+                    key={index}
+                    className="p-6 bg-secondary rounded-2xl text-secondary-foreground"
+                  >
+                    {outcome}
+                  </div>
                 ))}
-              </ul>
+              </div>
             </section>
           </div>
 
-          <CaseStudyNav />
+          {/* Side Navigation */}
+          <aside className="hidden lg:block sticky top-24 h-fit">
+            <nav 
+              className="space-y-4 text-sm border-l border-border pl-8"
+              aria-label="Case study sections"
+            >
+              {["overview", "role", "process", "gallery", "outcomes"].map((section) => (
+                <a
+                  key={section}
+                  href={`#${section}`}
+                  className={`block py-2 transition-colors ${
+                    activeSection === section
+                      ? "text-foreground font-medium border-l-2 border-foreground -ml-[33px] pl-8"
+                      : "text-muted-foreground hover:text-foreground"
+                  }`}
+                >
+                  {section.charAt(0).toUpperCase() + section.slice(1)}
+                </a>
+              ))}
+            </nav>
+          </aside>
         </div>
       </div>
-
-      {/* Lightbox */}
-      {selectedImage && (
-        <div
-          className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4"
-          onClick={() => setSelectedImage(null)}
-          onKeyDown={(e) => e.key === 'Escape' && setSelectedImage(null)}
-          role="dialog"
-          aria-label="Image preview"
-          tabIndex={-1}
-        >
-          <img
-            src={selectedImage}
-            alt="Full size preview"
-            className="max-w-full max-h-[90vh] object-contain"
-          />
-          <button
-            className="absolute top-4 right-4 text-white hover:text-white/80 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-            onClick={() => setSelectedImage(null)}
-            aria-label="Close preview"
-          >
-            <ArrowLeft className="h-6 w-6 transform rotate-90" />
-          </button>
-        </div>
-      )}
     </div>
   );
 };
