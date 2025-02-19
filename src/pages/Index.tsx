@@ -2,10 +2,12 @@ import { ArrowRight, Mail, Github, Linkedin, Sun, Moon } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Index = () => {
   const [mounted, setMounted] = useState(false);
   const [isDark, setIsDark] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setMounted(true);
@@ -106,7 +108,11 @@ const Index = () => {
                   <p className="text-muted-foreground mb-6">
                     {project.description}
                   </p>
-                  <Button variant="ghost" className="rounded-full px-0 hover:px-4 transition-all duration-300">
+                  <Button 
+                    variant="ghost" 
+                    className="rounded-full px-0 hover:px-4 transition-all duration-300"
+                    onClick={() => navigate(`/case-study/${project.slug}`)}
+                  >
                     View Case Study <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
                 </div>
@@ -160,6 +166,7 @@ const projects = [
       "/lovable-uploads/46e75da5-478a-4369-aa20-43942beef716.png",
       "/lovable-uploads/6bbbdb76-96ca-4062-afe4-faf20078abdf.png"
     ],
+    slug: "solace"
   },
   {
     title: "Papyrus",
@@ -170,6 +177,7 @@ const projects = [
       "/lovable-uploads/cba00f4b-0405-4cef-96d9-e22ffa995c8b.png",
       "/lovable-uploads/220c85c8-b596-4c6c-bd2b-b60a845a0508.png"
     ],
+    slug: "papyrus"
   },
   {
     title: "SOS Alarm",
@@ -180,6 +188,7 @@ const projects = [
       "/lovable-uploads/03237c2d-8d62-42fb-9a7f-5564be5e06ba.png",
       "/lovable-uploads/b1497a8d-0417-448d-925d-4f7b20d622dc.png"
     ],
+    slug: "sos-alarm"
   },
 ];
 
