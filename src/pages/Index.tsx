@@ -1,3 +1,4 @@
+
 import { ArrowRight, Mail, Github, Linkedin, Sun, Moon, Send } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import { Button } from "@/components/ui/button";
@@ -117,6 +118,8 @@ const Index = () => {
                   src="/lovable-uploads/b87c4c8e-aa5c-463d-b11d-6f5e6a8e36a4.png"
                   alt="Dorian Tykesson"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  loading="eager"
+                  fetchpriority="high"
                 />
               </div>
               <div className="absolute inset-0 rounded-full bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
