@@ -113,36 +113,33 @@ const projects: Project[] = [
     title: "Papyrus",
     description: "Enhancing academic research accessibility through intuitive interface design.",
     images: [
-      "/lovable-uploads/38649703-1876-4c79-8680-5a09ef0f2c8f.png",
-      "/lovable-uploads/a8be5969-52f7-4dcc-a5f5-d9732e6f197d.png",
-      "/lovable-uploads/cba00f4b-0405-4cef-96d9-e22ffa995c8b.png",
-      "/lovable-uploads/220c85c8-b596-4c6c-bd2b-b60a845a0508.png"
+      "/lovable-uploads/papyrus-1-papyrus.png",
+      "/lovable-uploads/papyrus-2-challenge.png",
+      "/lovable-uploads/papyrus-3-annotations.png"
     ],
-    profileImage: "/lovable-uploads/04ccfbbf-6214-461d-bc3b-8d158ece3d6a.png",
+    profileImage: "/lovable-uploads/Papyrus-projectcard-img.png",
     slug: "papyrus"
   },
   {
     title: "SOS Alarm",
     description: "Optimizing emergency response workflows through cognitive ergonomics.",
     images: [
-      "/lovable-uploads/5c48dc5f-5d5c-4d34-b2de-d27532c3bfe3.png",
-      "/lovable-uploads/9cd69b84-30c0-4298-99f7-4457f6c78d22.png",
-      "/lovable-uploads/03237c2d-8d62-42fb-9a7f-5564be5e06ba.png",
-      "/lovable-uploads/b1497a8d-0417-448d-925d-4f7b20d622dc.png"
+      "/lovable-uploads/sos-1-helpseekercase.png",
+      "/lovable-uploads/sos-2-gtk.png",
+      "/lovable-uploads/sos-3-solution.png"
     ],
-    profileImage: "/lovable-uploads/466ef9a3-c93b-4771-86ad-2fa8866f7970.png",
+    profileImage: "/lovable-uploads/SOSALArm-projectcard-img.png",
     slug: "sos-alarm"
   },
   {
     title: "Solace",
     description: "A mental health app for trauma recovery, leveraging AI-driven therapeutic interactions.",
     images: [
-      "/lovable-uploads/b74e454a-2489-4b24-a7a2-45fa4ff51171.png",
-      "/lovable-uploads/a9cb4d78-8b3e-4f8a-ba8f-a1618fc4e776.png",
-      "/lovable-uploads/46e75da5-478a-4369-aa20-43942beef716.png",
-      "/lovable-uploads/6bbbdb76-96ca-4062-afe4-faf20078abdf.png"
+      "/lovable-uploads/solace-1-onboarding.png",
+      "/lovable-uploads/solace-2-home.png",
+      "/lovable-uploads/solace-3-form.png"
     ],
-    profileImage: "/lovable-uploads/22be8763-6688-4c2c-a05f-5fd55da48025.png",
+    profileImage: "/lovable-uploads/",
     slug: "solace"
   },
 ];
