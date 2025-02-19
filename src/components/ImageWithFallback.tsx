@@ -2,11 +2,11 @@
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
-import { ZoomIn } from 'lucide-react';
 
 interface ImageWithFallbackProps extends React.ImgHTMLAttributes<HTMLImageElement> {
   fallback?: string;
   allowZoom?: boolean;
+  hasMotion?: boolean; // Add the hasMotion prop to the interface
 }
 
 const ImageWithFallback = ({
@@ -15,6 +15,7 @@ const ImageWithFallback = ({
   fallback = '/placeholder.svg',
   className,
   allowZoom = false,
+  hasMotion = false, // Add default value
   ...props
 }: ImageWithFallbackProps) => {
   const [error, setError] = useState(false);
@@ -37,6 +38,7 @@ const ImageWithFallback = ({
         onClick={handleClick}
         className={cn(
           'transition-opacity duration-300 max-w-full',
+          hasMotion && 'transition-transform duration-500',
           allowZoom && 'cursor-zoom-in hover:opacity-90',
           className
         )}
