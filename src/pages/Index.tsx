@@ -1,4 +1,3 @@
-
 import { ArrowRight, Mail, Github, Linkedin, Sun, Moon } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import { Button } from "@/components/ui/button";
@@ -96,7 +95,11 @@ const Index = () => {
                 className="group bg-white dark:bg-soft-black rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300"
               >
                 <div className="aspect-video bg-neutral-100 dark:bg-neutral-900 overflow-hidden">
-                  <div className="w-full h-full bg-neutral-200 dark:bg-neutral-800 group-hover:scale-105 transition-transform duration-500" />
+                  <img
+                    src={project.images[0]}
+                    alt={project.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
                 </div>
                 <div className="p-8">
                   <h3 className="text-xl font-semibold mb-3">{project.title}</h3>
@@ -151,14 +154,32 @@ const projects = [
   {
     title: "Solace",
     description: "A mental health app for trauma recovery, leveraging AI-driven therapeutic interactions.",
+    images: [
+      "/lovable-uploads/971dd684-5ccc-41dc-b7b3-8d785ef6027a.png",
+      "/lovable-uploads/a9cb4d78-8b3e-4f8a-ba8f-a1618fc4e776.png",
+      "/lovable-uploads/46e75da5-478a-4369-aa20-43942beef716.png",
+      "/lovable-uploads/6bbbdb76-96ca-4062-afe4-faf20078abdf.png"
+    ],
   },
   {
     title: "Papyrus",
     description: "Enhancing academic research accessibility through intuitive interface design.",
+    images: [
+      "/lovable-uploads/5562aace-fd78-4cb5-80b1-2f1a103e0e6e.png",
+      "/lovable-uploads/a8be5969-52f7-4dcc-a5f5-d9732e6f197d.png",
+      "/lovable-uploads/cba00f4b-0405-4cef-96d9-e22ffa995c8b.png",
+      "/lovable-uploads/220c85c8-b596-4c6c-bd2b-b60a845a0508.png"
+    ],
   },
   {
     title: "SOS Alarm",
     description: "Optimizing emergency response workflows through cognitive ergonomics.",
+    images: [
+      "/lovable-uploads/2c6840de-d4aa-4dec-b0fe-2bb2516843d8.png",
+      "/lovable-uploads/9cd69b84-30c0-4298-99f7-4457f6c78d22.png",
+      "/lovable-uploads/03237c2d-8d62-42fb-9a7f-5564be5e06ba.png",
+      "/lovable-uploads/b1497a8d-0417-448d-925d-4f7b20d622dc.png"
+    ],
   },
 ];
 
