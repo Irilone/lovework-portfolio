@@ -38,6 +38,7 @@ const ProjectCard = ({ project, onViewCaseStudy }: ProjectCardProps) => {
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
               width={800}
               height={450}
+              hasMotion={true}
             />
           </div>
           <div className="p-6 md:p-8">
@@ -73,11 +74,20 @@ const ProjectCard = ({ project, onViewCaseStudy }: ProjectCardProps) => {
       </div>
 
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogContent className="max-w-4xl">
+        <DialogContent 
+          className="max-w-4xl"
+          aria-labelledby={`dialog-title-${project.slug}`}
+        >
           <DialogHeader>
-            <DialogTitle>{project.title}</DialogTitle>
+            <DialogTitle id={`dialog-title-${project.slug}`}>
+              {project.title}
+            </DialogTitle>
           </DialogHeader>
-          <div className="grid gap-4">
+          <div 
+            className="grid gap-4"
+            role="region"
+            aria-label={`${project.title} project images`}
+          >
             {project.images.map((image, index) => (
               <ImageWithFallback
                 key={index}
@@ -87,10 +97,14 @@ const ProjectCard = ({ project, onViewCaseStudy }: ProjectCardProps) => {
                 width={1200}
                 height={675}
                 allowZoom
+                hasMotion={true}
               />
             ))}
           </div>
-          <div className="mt-4">
+          <div 
+            className="mt-4"
+            aria-live="polite"
+          >
             <p className="text-muted-foreground">{project.description}</p>
           </div>
           <div className="mt-6">

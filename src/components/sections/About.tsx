@@ -45,12 +45,15 @@ const About = () => {
               </p>
             </div>
 
-            {/* Social Links */}
+            {/* Social Links with ARIA live region for status updates */}
             <div 
               className="flex gap-4"
               role="list"
               aria-label="Social media links"
             >
+              <div aria-live="polite" className="sr-only">
+                Social media links available for GitHub, LinkedIn, and Email
+              </div>
               <Button 
                 variant="outline" 
                 size="icon" 
