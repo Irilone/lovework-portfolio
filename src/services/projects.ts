@@ -26,26 +26,35 @@ export const projectsService = {
 
       const storageUrl = publicUrl.publicUrl;
 
-      return projects.map(project => ({
-        id: project.id,
-        slug: project.slug,
-        title: project.title,
-        description: project.description,
-        category: project.category,
-        overview: project.overview,
-        role: project.role,
-        tools: project.tools,
-        challenges: project.challenges,
-        solutions: project.solutions,
-        outcomes: project.outcomes,
-        images: project.project_images
+      return projects.map(project => {
+        // Get project images sorted by order
+        const sortedImages = project.project_images
           .sort((a: any, b: any) => a.order - b.order)
-          .map((img: any) => `${storageUrl}/public/lovable-uploads/${project.slug}/${img.url}`),
-        coverImage: `${storageUrl}/public/lovable-uploads/${project.slug}/${project.slug}-projectcard-img.png`,
-        profileImage: project.project_images.find((img: any) => img.type === 'cover')?.url 
-          ? `${storageUrl}/public/lovable-uploads/${project.slug}/${project.project_images.find((img: any) => img.type === 'cover')?.url}`
-          : ''
-      }));
+          .map((img: any) => `${storageUrl}/public/lovable-uploads/${project.slug}/${img.url}`);
+
+        // Find cover image if it exists
+        const coverImg = project.project_images.find((img: any) => img.type === 'cover');
+        const coverImagePath = coverImg 
+          ? `${storageUrl}/public/lovable-uploads/${project.slug}/${coverImg.url}`
+          : `${storageUrl}/public/lovable-uploads/${project.slug}/${project.slug}-projectcard-img.png`;
+
+        return {
+          id: project.id,
+          slug: project.slug,
+          title: project.title,
+          description: project.description,
+          category: project.category,
+          overview: project.overview,
+          role: project.role,
+          tools: project.tools,
+          challenges: project.challenges,
+          solutions: project.solutions,
+          outcomes: project.outcomes,
+          images: sortedImages,
+          coverImage: coverImagePath,
+          profileImage: coverImagePath // Using the same cover image for profile if needed
+        };
+      });
     } catch (error) {
       return api.handleError(error as Error);
     }
