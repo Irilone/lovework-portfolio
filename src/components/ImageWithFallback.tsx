@@ -4,6 +4,7 @@ import { cn } from '@/lib/utils';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { motion, HTMLMotionProps } from 'framer-motion';
 import { LoadingState } from './ui/loading-state';
+import { useAnimations } from '@/hooks/use-animations';
 
 interface ImageWithFallbackProps extends React.ImgHTMLAttributes<HTMLImageElement> {
   src?: string;
@@ -27,10 +28,12 @@ const ImageWithFallback = ({
   const [error, setError] = useState(false);
   const [isZoomed, setIsZoomed] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const { animations } = useAnimations();
 
   const handleError = () => {
     console.error(`Failed to load image: ${src}`);
     setError(true);
+    setIsLoading(false);
   };
 
   const handleLoad = () => {
@@ -62,6 +65,8 @@ const ImageWithFallback = ({
     onClick: handleClick,
     onKeyDown: handleKeyPress,
     tabIndex: allowZoom ? 0 : undefined,
+    role: allowZoom ? "button" : undefined,
+    "aria-label": allowZoom ? `${alt} (click to zoom)` : undefined,
     className: cn(
       'transition-transform duration-300',
       allowZoom && 'cursor-zoom-in',
@@ -71,14 +76,21 @@ const ImageWithFallback = ({
   };
 
   return (
-    <div className="relative" role="img" aria-label={alt}>
-      {isLoading && <LoadingState message="Loading image..." />}
+    <div 
+      className="relative" 
+      role="img" 
+      aria-label={alt}
+    >
+      {isLoading && (
+        <div className="absolute inset-0 flex items-center justify-center">
+          <LoadingState message="Loading image..." size="sm" />
+        </div>
+      )}
       
       {hasMotion ? (
         <motion.img
           {...(imageProps as unknown as HTMLMotionProps<"img">)}
-          whileHover={{ scale: 1.02 }}
-          transition={{ duration: 0.2 }}
+          {...animations.scaleOnHover}
         />
       ) : (
         <img {...imageProps} />
@@ -86,8 +98,15 @@ const ImageWithFallback = ({
 
       {allowZoom && (
         <Dialog open={isZoomed} onOpenChange={setIsZoomed}>
-          <DialogContent className="max-w-[90vw] max-h-[90vh] p-0" aria-label={`Zoomed view of ${alt}`}>
-            <div className="relative w-full h-full overflow-auto" role="presentation">
+          <DialogContent 
+            className="max-w-[90vw] max-h-[90vh] p-0"
+            aria-label={`Zoomed view of ${alt}`}
+          >
+            <motion.div 
+              className="relative w-full h-full overflow-auto"
+              role="presentation"
+              {...animations.fadeInUp}
+            >
               <img
                 src={imageSource}
                 alt={alt}
@@ -100,7 +119,7 @@ const ImageWithFallback = ({
                 }}
                 tabIndex={0}
               />
-            </div>
+            </motion.div>
           </DialogContent>
         </Dialog>
       )}
