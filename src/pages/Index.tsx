@@ -6,67 +6,25 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Hero from "@/components/sections/Hero";
 import ProjectCard from "@/components/ProjectCard";
-import { Project } from "@/types/project";
 import Contact from "@/components/sections/Contact";
 import About from "@/components/sections/About";
-import { supabase } from "@/integrations/supabase/client";
 import { useQuery } from "@tanstack/react-query";
-
-const fetchProjects = async (): Promise<Project[]> => {
-  const { data: projects, error } = await supabase
-    .from('projects')
-    .select(`
-      *,
-      project_images (
-        url,
-        type,
-        "order"
-      )
-    `)
-    .order('created_at', { ascending: false });
-
-  if (error) {
-    console.error('Error fetching projects:', error);
-    throw error;
-  }
-
-  return projects.map(project => ({
-    id: project.id,
-    slug: project.slug,
-    title: project.title,
-    description: project.description,
-    category: project.category,
-    overview: project.overview,
-    role: project.role,
-    tools: project.tools,
-    challenges: project.challenges,
-    solutions: project.solutions,
-    outcomes: project.outcomes,
-    images: project.project_images
-      .sort((a: any, b: any) => a.order - b.order)
-      .map((img: any) => img.url),
-    profileImage: project.project_images.find((img: any) => img.type === 'cover')?.url || ''
-  }));
-};
+import { projectsService } from "@/services/projects";
+import { useTheme } from "@/contexts/ThemeContext";
 
 const Index = () => {
   const [mounted, setMounted] = useState(false);
-  const [isDark, setIsDark] = useState(false);
   const navigate = useNavigate();
+  const { theme, toggleTheme } = useTheme();
 
   const { data: projects = [], isLoading, error } = useQuery({
     queryKey: ['projects'],
-    queryFn: fetchProjects
+    queryFn: projectsService.getAll
   });
 
   useEffect(() => {
     setMounted(true);
   }, []);
-
-  const toggleTheme = () => {
-    setIsDark(!isDark);
-    document.documentElement.classList.toggle('dark');
-  };
 
   if (!mounted) return null;
 
@@ -83,10 +41,10 @@ const Index = () => {
         size="icon"
         className="fixed top-24 right-6 z-50 rounded-full bg-background/80 backdrop-blur-sm shadow-md focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
         onClick={toggleTheme}
-        aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
-        aria-pressed={isDark}
+        aria-label={theme === 'dark' ? "Switch to light mode" : "Switch to dark mode"}
+        aria-pressed={theme === 'dark'}
       >
-        {isDark ? (
+        {theme === 'dark' ? (
           <Sun className="h-5 w-5" aria-hidden="true" />
         ) : (
           <Moon className="h-5 w-5" aria-hidden="true" />

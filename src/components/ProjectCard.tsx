@@ -8,13 +8,8 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Project } from "@/types/project";
 import ImageWithFallback from "./ImageWithFallback";
-
-interface ProjectCardProps {
-  project: Project;
-  onViewCaseStudy: (slug: string) => void;
-}
+import { ProjectCardProps } from "@/types/components/project-card";
 
 const ProjectCard = ({ project, onViewCaseStudy }: ProjectCardProps) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
