@@ -34,6 +34,7 @@ export const projectsService = {
         images: project.project_images
           .sort((a: any, b: any) => a.order - b.order)
           .map((img: any) => img.url),
+        coverImage: `/lovable-uploads/${project.slug}-projectcard-img.png`,
         profileImage: project.project_images.find((img: any) => img.type === 'cover')?.url || ''
       }));
     } catch (error) {
