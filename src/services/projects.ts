@@ -19,6 +19,13 @@ export const projectsService = {
 
       if (error) throw error;
 
+      const { data: publicUrl } = api.supabase
+        .storage
+        .from('project-images')
+        .getPublicUrl('');
+
+      const storageUrl = publicUrl.publicUrl;
+
       return projects.map(project => ({
         id: project.id,
         slug: project.slug,
@@ -33,9 +40,11 @@ export const projectsService = {
         outcomes: project.outcomes,
         images: project.project_images
           .sort((a: any, b: any) => a.order - b.order)
-          .map((img: any) => img.url),
-        coverImage: `/lovable-uploads/${project.slug}-projectcard-img.png`,
-        profileImage: project.project_images.find((img: any) => img.type === 'cover')?.url || ''
+          .map((img: any) => `${storageUrl}/public/lovable-uploads/${project.slug}/${img.url}`),
+        coverImage: `${storageUrl}/public/lovable-uploads/${project.slug}/${project.slug}-projectcard-img.png`,
+        profileImage: project.project_images.find((img: any) => img.type === 'cover')?.url 
+          ? `${storageUrl}/public/lovable-uploads/${project.slug}/${project.project_images.find((img: any) => img.type === 'cover')?.url}`
+          : ''
       }));
     } catch (error) {
       return api.handleError(error as Error);
