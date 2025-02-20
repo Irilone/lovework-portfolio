@@ -113,36 +113,36 @@ const projects: Project[] = [
     title: "Papyrus",
     description: "Enhancing academic research accessibility through intuitive interface design.",
     images: [
-      "public/lovable-uploads/Papyrus-projectcard-img.png",
-      "public/lovable-uploads/papyrus-1-papyrus.png",
-      "public/lovable-uploads/papyrus-2-challenge.png",
-      "public/lovable-uploads/papyrus-3-annotations.png"
+      "/lovable-uploads/Papyrus-projectcard-img.png",
+      "/lovable-uploads/papyrus-1-papyrus.png",
+      "/lovable-uploads/papyrus-2-challenge.png",
+      "/lovable-uploads/papyrus-3-annotations.png"
     ],
-    profileImage: "public/lovable-uploads/Papyrus-projectcard-img.png",
+    profileImage: "/lovable-uploads/Papyrus-projectcard-img.png",
     slug: "papyrus"
   },
   {
     title: "SOS Alarm",
     description: "Optimizing emergency response workflows through cognitive ergonomics.",
     images: [
-      "public/lovable-uploads/SOSALArm-projectcard-img.png",
-      "public/lovable-uploads/sos-1-helpseekercase.png",
-      "public/lovable-uploads/sos-2-gtk.png",
-      "public/lovable-uploads/sos-3-solution.png"
+      "/lovable-uploads/SOSALArm-projectcard-img.png",
+      "/lovable-uploads/sos-1-helpseekercase.png",
+      "/lovable-uploads/sos-2-gtk.png",
+      "/lovable-uploads/sos-3-solution.png"
     ],
-    profileImage: "public/lovable-uploads/SOSALArm-projectcard-img.png",
+    profileImage: "/lovable-uploads/SOSALArm-projectcard-img.png",
     slug: "sos-alarm"
   },
   {
     title: "Solace",
     description: "A mental health app for trauma recovery, leveraging AI-driven therapeutic interactions.",
     images: [
-      "public/lovable-uploads/Solace-projectcard-img.png",
-      "public/lovable-uploads/solace-1-onboarding.png",
-      "public/lovable-uploads/solace-2-home.png",
-      "public/lovable-uploads/solace-3-form.png"
+      "/lovable-uploads/Solace-projectcard-img.png",
+      "/lovable-uploads/solace-1-onboarding.png",
+      "/lovable-uploads/solace-2-home.png",
+      "/lovable-uploads/solace-3-form.png"
     ],
-    profileImage: "public/lovable-uploads/Solace-projectcard-img.png",
+    profileImage: "/lovable-uploads/Solace-projectcard-img.png",
     slug: "solace"
   },
 ];
