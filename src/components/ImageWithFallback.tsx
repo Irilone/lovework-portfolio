@@ -4,15 +4,12 @@ import { cn } from '@/lib/utils';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { motion, HTMLMotionProps } from 'framer-motion';
 
-interface ImageWithFallbackProps {
+interface ImageWithFallbackProps extends React.ImgHTMLAttributes<HTMLImageElement> {
   src?: string;
   alt: string;
   fallback?: string;
   allowZoom?: boolean;
   hasMotion?: boolean;
-  className?: string;
-  width?: number;
-  height?: number;
 }
 
 const ImageWithFallback = ({
@@ -70,7 +67,7 @@ const ImageWithFallback = ({
     <div className="relative" role="img" aria-label={alt}>
       {hasMotion ? (
         <motion.img
-          {...(imageProps as HTMLMotionProps<"img">)}
+          {...(imageProps as unknown as HTMLMotionProps<"img">)}
           whileHover={{ scale: 1.02 }}
           transition={{ duration: 0.2 }}
         />
