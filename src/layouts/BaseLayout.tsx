@@ -1,6 +1,7 @@
 
 import Navigation from "@/components/Navigation";
 import { ReactNode } from "react";
+import { AnimatedLayout } from "./AnimatedLayout";
 
 interface BaseLayoutProps {
   children: ReactNode;
@@ -8,11 +9,9 @@ interface BaseLayoutProps {
 
 export const BaseLayout = ({ children }: BaseLayoutProps) => {
   return (
-    <div className="min-h-screen bg-background">
+    <AnimatedLayout>
       <Navigation />
-      <main className="container mx-auto px-4 py-8 md:px-6 lg:px-8">
-        {children}
-      </main>
-    </div>
+      {children}
+    </AnimatedLayout>
   );
 };

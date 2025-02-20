@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { cn } from '@/lib/utils';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { motion, HTMLMotionProps } from 'framer-motion';
+import { LoadingState } from './ui/loading-state';
 
 interface ImageWithFallbackProps extends React.ImgHTMLAttributes<HTMLImageElement> {
   src?: string;
@@ -25,10 +26,15 @@ const ImageWithFallback = ({
 }: ImageWithFallbackProps) => {
   const [error, setError] = useState(false);
   const [isZoomed, setIsZoomed] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const handleError = () => {
     console.error(`Failed to load image: ${src}`);
     setError(true);
+  };
+
+  const handleLoad = () => {
+    setIsLoading(false);
   };
 
   const handleClick = () => {
@@ -52,6 +58,7 @@ const ImageWithFallback = ({
     width,
     height,
     onError: handleError,
+    onLoad: handleLoad,
     onClick: handleClick,
     onKeyDown: handleKeyPress,
     tabIndex: allowZoom ? 0 : undefined,
@@ -65,6 +72,8 @@ const ImageWithFallback = ({
 
   return (
     <div className="relative" role="img" aria-label={alt}>
+      {isLoading && <LoadingState message="Loading image..." />}
+      
       {hasMotion ? (
         <motion.img
           {...(imageProps as unknown as HTMLMotionProps<"img">)}
