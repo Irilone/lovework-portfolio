@@ -32,11 +32,8 @@ export const projectsService = {
           .sort((a: any, b: any) => a.order - b.order)
           .map((img: any) => `${storageUrl}/public/lovable-uploads/${project.slug}/${img.url}`);
 
-        // Find cover image if it exists
-        const coverImg = project.project_images.find((img: any) => img.type === 'cover');
-        const coverImagePath = coverImg 
-          ? `${storageUrl}/public/lovable-uploads/${project.slug}/${coverImg.url}`
-          : `${storageUrl}/public/lovable-uploads/${project.slug}/${project.slug}-projectcard-img.png`;
+        // Always use the project card image for the cover
+        const coverImagePath = `${storageUrl}/public/lovable-uploads/${project.slug}/${project.slug}-projectcard-img.png`;
 
         return {
           id: project.id,
