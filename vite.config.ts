@@ -5,7 +5,7 @@ import path from "path";
 
 export default defineConfig(({ mode }) => ({
   server: {
-    host: true,
+    host: '0.0.0.0',
     port: 8080,
     strictPort: true,
     allowedHosts: [
@@ -13,7 +13,10 @@ export default defineConfig(({ mode }) => ({
       '.lovableproject.com',
       'localhost',
       '127.0.0.1'
-    ]
+    ],
+    hmr: {
+      host: 'f4165080-5adc-4341-8b4c-e25a17f06f03.lovableproject.com'
+    }
   },
   plugins: [
     react(),
