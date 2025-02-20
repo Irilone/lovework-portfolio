@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 
 const Hero = () => {
   const [displayText, setDisplayText] = useState("");
-  const fullText = "Creating intuitive and impactful digital experiences";
+  const fullText = "Creating interfaces that align with human cognition";
 
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -74,7 +74,7 @@ const Hero = () => {
       />
       
       <motion.div 
-        className="relative text-center space-y-6 md:space-y-8"
+        className="relative text-center space-y-6 md:space-y-8 max-w-4xl"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
@@ -83,12 +83,12 @@ const Hero = () => {
           className="text-xs md:text-sm uppercase tracking-widest text-muted-foreground"
           variants={itemVariants}
         >
-          Interaction Designer & HCI Specialist
+          Cognitive Systems Designer & HCI Specialist
         </motion.span>
         
         <motion.h1 
           id="hero-heading"
-          className="text-4xl md:text-5xl lg:text-7xl font-bold tracking-tight"
+          className="text-4xl md:text-5xl lg:text-7xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-foreground to-foreground/70"
           variants={itemVariants}
         >
           Dorian Tykesson
@@ -106,18 +106,27 @@ const Hero = () => {
           className="text-base md:text-lg text-muted-foreground max-w-xl mx-auto"
           variants={itemVariants}
         >
-          Blending cognitive science with human-centered design
+          Applying the Free Energy Principle to design predictable, efficient interfaces
         </motion.p>
         
         <motion.div variants={itemVariants}>
           <CustomButton 
             size="lg" 
-            className="mt-6 md:mt-8 rounded-full shadow-lg hover:shadow-xl"
+            className="mt-6 md:mt-8 rounded-full shadow-lg hover:shadow-xl bg-gradient-to-r from-primary to-primary/80"
             onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
             aria-label="View my work"
           >
-            View Work <ArrowRight className="ml-2 h-4 w-4" />
+            Explore My Work <ArrowRight className="ml-2 h-4 w-4" />
           </CustomButton>
+        </motion.div>
+
+        <motion.div
+          className="mt-12 text-sm text-muted-foreground"
+          variants={itemVariants}
+        >
+          <p className="max-w-lg mx-auto">
+            Each project demonstrates how understanding human cognition leads to better design
+          </p>
         </motion.div>
       </motion.div>
 

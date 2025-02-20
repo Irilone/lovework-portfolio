@@ -13,12 +13,10 @@ const ProjectCard = ({ project, onViewCaseStudy }: ProjectCardProps) => {
   const navigate = useNavigate();
 
   const handleProjectClick = useCallback(() => {
-    // Initiate transition animation
     controls.start({
       scale: 1.02,
       transition: { duration: 0.2 }
     }).then(() => {
-      // Navigate after subtle expansion
       onViewCaseStudy(project.slug);
     });
   }, [project.slug, onViewCaseStudy, controls]);
@@ -69,29 +67,43 @@ const ProjectCard = ({ project, onViewCaseStudy }: ProjectCardProps) => {
       </div>
 
       <motion.div 
-        className="p-6"
+        className="p-6 space-y-4"
         variants={contentVariants}
       >
         <motion.h3 
-          className="text-xl font-semibold mb-3"
+          className="text-xl font-semibold"
           animate={{ color: isHovered ? "var(--primary)" : "var(--foreground)" }}
         >
           {project.title}
         </motion.h3>
         
         <motion.p 
-          className="text-muted-foreground mb-4"
+          className="text-muted-foreground"
           variants={{ hover: { opacity: 0.9 } }}
         >
           {project.description}
         </motion.p>
 
+        <div className="space-y-2">
+          <p className="text-sm text-muted-foreground">Key Cognitive Principles:</p>
+          <ul className="text-sm space-y-1">
+            <li className="flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-primary/60" />
+              Prediction Error Minimization
+            </li>
+            <li className="flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-primary/60" />
+              Active Inference Design
+            </li>
+          </ul>
+        </div>
+
         <motion.div
-          className="flex items-center gap-2 text-primary"
+          className="flex items-center gap-2 text-primary pt-2"
           initial={{ opacity: 0.8 }}
           whileHover={{ opacity: 1, x: 5 }}
         >
-          View Case Study 
+          Explore Case Study 
           <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
         </motion.div>
       </motion.div>
