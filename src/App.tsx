@@ -10,6 +10,7 @@ import NotFound from "./pages/NotFound";
 import CaseStudy from "./pages/CaseStudy";
 import { useState } from "react";
 import { ThemeProvider } from "./contexts/ThemeContext";
+import { BaseLayout } from "./layouts/BaseLayout";
 
 function App() {
   const [queryClient] = useState(() => new QueryClient());
@@ -27,13 +28,13 @@ function App() {
             <Toaster />
             <Sonner />
             <BrowserRouter>
-              <main id="main-content">
+              <BaseLayout>
                 <Routes>
                   <Route path="/" element={<Index />} />
                   <Route path="/case-study/:id" element={<CaseStudy />} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
-              </main>
+              </BaseLayout>
             </BrowserRouter>
           </TooltipProvider>
         </ThemeProvider>
