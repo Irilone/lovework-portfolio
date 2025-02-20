@@ -1,3 +1,4 @@
+
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
@@ -51,7 +52,7 @@ const ProjectCard = ({ project, onViewCaseStudy }: ProjectCardProps) => {
               transition={{ duration: 0.6 }}
             >
               <ImageWithFallback
-                src={`/lovable-uploads/${project.slug}-projectcard-img.png`}
+                src={project.coverImage}
                 alt={`Preview of ${project.title}`}
                 className="w-full h-full object-cover"
                 width={800}
