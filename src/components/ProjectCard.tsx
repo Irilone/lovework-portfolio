@@ -52,7 +52,7 @@ const ProjectCard = ({ project, onViewCaseStudy }: ProjectCardProps) => {
               transition={{ duration: 0.6 }}
             >
               <ImageWithFallback
-                src={`/lovable-uploads/${project.slug}-projectcard-img.png`}
+                src={project.coverImage}
                 alt={`Preview of ${project.title}`}
                 className="w-full h-full object-cover"
                 width={800}
@@ -62,22 +62,13 @@ const ProjectCard = ({ project, onViewCaseStudy }: ProjectCardProps) => {
             </motion.div>
           </div>
           <div className="p-6 md:p-8">
-            <div className="flex items-center gap-4 mb-4">
-              <ImageWithFallback
-                src="/lovable-uploads/profile-picture-about-me.png"
-                alt="Dorian Tykesson profile"
-                className="w-12 h-12 rounded-full object-cover"
-                width={48}
-                height={48}
-              />
-              <motion.h3 
-                id={`project-${project.slug}-title`}
-                className="text-xl font-semibold"
-                animate={{ color: isHovered ? "var(--primary)" : "var(--foreground)" }}
-              >
-                {project.title}
-              </motion.h3>
-            </div>
+            <motion.h3 
+              id={`project-${project.slug}-title`}
+              className="text-xl font-semibold mb-4"
+              animate={{ color: isHovered ? "var(--primary)" : "var(--foreground)" }}
+            >
+              {project.title}
+            </motion.h3>
             <p className="text-muted-foreground">
               {project.description}
             </p>
