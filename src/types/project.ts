@@ -12,5 +12,6 @@ export interface Project {
   solutions: string[];
   outcomes: string[];
   images: string[];
+  coverImage: string;
   profileImage: string;
 }
