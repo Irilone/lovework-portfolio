@@ -1,5 +1,5 @@
 
-import { Navigation } from "@/components/Navigation";
+import Navigation from "@/components/Navigation";
 import { ReactNode } from "react";
 
 interface BaseLayoutProps {
