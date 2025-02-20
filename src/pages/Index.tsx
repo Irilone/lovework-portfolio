@@ -113,10 +113,10 @@ const projects: Project[] = [
     title: "Papyrus",
     description: "Enhancing academic research accessibility through intuitive interface design.",
     images: [
-      "/lovable-uploads/Papyrus-projectcard-img.png",
-      "/lovable-uploads/papyrus-1-papyrus.png",
-      "/lovable-uploads/papyrus-2-challenge.png",
-      "/lovable-uploads/papyrus-3-annotations.png"
+      "lovework-portfolio/public/lovable-uploads/Papyrus-projectcard-img.png",
+      "lovework-portfolio/public/lovable-uploads/papyrus-1-papyrus.png",
+      "lovework-portfolio/public/lovable-uploads/papyrus-2-challenge.png",
+      "lovework-portfolio/public/lovable-uploads/papyrus-3-annotations.png"
     ],
     profileImage: "/lovable-uploads/Papyrus-projectcard-img.png",
     slug: "papyrus"
