@@ -4,7 +4,11 @@ import { Menu, X } from "lucide-react";
 import { Button } from "./ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 
-const Navigation = () => {
+interface NavigationProps {
+  activeSection?: string;
+}
+
+const Navigation = ({ activeSection = "hero" }: NavigationProps) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -17,11 +21,11 @@ const Navigation = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const handleKeyPress = (e: React.KeyboardEvent) => {
-    if (e.key === 'Escape' && isMenuOpen) {
-      setIsMenuOpen(false);
-    }
-  };
+  const navItems = ['about', 'projects', 'contact'].map(item => ({
+    id: item,
+    label: item.charAt(0).toUpperCase() + item.slice(1),
+    href: `#${item}`
+  }));
 
   return (
     <nav
@@ -30,32 +34,40 @@ const Navigation = () => {
           ? "bg-background/80 backdrop-blur-xl border-b border-border"
           : "bg-transparent"
       }`}
-      role="navigation"
-      aria-label="Main navigation"
-      onKeyDown={handleKeyPress}
     >
       <div className="container mx-auto px-4 md:px-6 h-16 md:h-20 flex items-center justify-between">
         <motion.a
           href="/"
-          className="text-base md:text-lg font-medium hover:text-neutral-500 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-md"
-          aria-label="Home"
+          className="text-base md:text-lg font-medium relative"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
           DT
+          <motion.div
+            className="absolute -bottom-1 left-0 w-full h-0.5 bg-primary"
+            initial={{ scaleX: 0 }}
+            animate={{ scaleX: activeSection === "hero" ? 1 : 0 }}
+            transition={{ duration: 0.3 }}
+          />
         </motion.a>
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center space-x-8">
-          {['about', 'projects', 'contact'].map((item) => (
+          {navItems.map(({ id, label, href }) => (
             <motion.a
-              key={item}
-              href={`#${item}`}
-              className="text-sm hover:text-neutral-500 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-md"
+              key={id}
+              href={href}
+              className="text-sm relative"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              {item.charAt(0).toUpperCase() + item.slice(1)}
+              {label}
+              <motion.div
+                className="absolute -bottom-1 left-0 w-full h-0.5 bg-primary"
+                initial={{ scaleX: 0 }}
+                animate={{ scaleX: activeSection === id ? 1 : 0 }}
+                transition={{ duration: 0.3 }}
+              />
             </motion.a>
           ))}
         </div>
@@ -64,39 +76,50 @@ const Navigation = () => {
         <Button
           variant="ghost"
           size="icon"
-          className="md:hidden w-10 h-10"
+          className="md:hidden"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
-          aria-expanded={isMenuOpen}
-          aria-controls="mobile-menu"
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
         >
-          {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={isMenuOpen ? "close" : "menu"}
+              initial={{ opacity: 0, rotate: -90 }}
+              animate={{ opacity: 1, rotate: 0 }}
+              exit={{ opacity: 0, rotate: 90 }}
+              transition={{ duration: 0.2 }}
+            >
+              {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            </motion.div>
+          </AnimatePresence>
         </Button>
 
         {/* Mobile Navigation */}
         <AnimatePresence>
           {isMenuOpen && (
-            <motion.div 
-              id="mobile-menu"
-              className="absolute top-16 md:top-20 left-0 right-0 bg-background/80 backdrop-blur-xl border-b border-border md:hidden"
-              role="menu"
-              initial={{ opacity: 0, y: -10 }}
+            <motion.div
+              className="absolute top-16 left-0 right-0 bg-background/80 backdrop-blur-xl border-b border-border md:hidden"
+              initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
+              exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.2 }}
             >
-              <div className="container mx-auto px-4 md:px-6 py-6 flex flex-col space-y-4">
-                {['about', 'projects', 'contact'].map((item) => (
+              <div className="container mx-auto px-4 py-6 flex flex-col space-y-4">
+                {navItems.map(({ id, label, href }) => (
                   <motion.a
-                    key={item}
-                    href={`#${item}`}
-                    className="text-base hover:text-neutral-500 transition-colors py-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-md"
+                    key={id}
+                    href={href}
+                    className="text-base py-2 relative"
                     onClick={() => setIsMenuOpen(false)}
-                    role="menuitem"
                     whileHover={{ x: 10 }}
                     transition={{ duration: 0.2 }}
                   >
-                    {item.charAt(0).toUpperCase() + item.slice(1)}
+                    {label}
+                    <motion.div
+                      className="absolute -bottom-1 left-0 w-full h-0.5 bg-primary"
+                      initial={{ scaleX: 0 }}
+                      animate={{ scaleX: activeSection === id ? 1 : 0 }}
+                      transition={{ duration: 0.3 }}
+                    />
                   </motion.a>
                 ))}
               </div>
