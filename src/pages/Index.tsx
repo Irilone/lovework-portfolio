@@ -9,11 +9,55 @@ import ProjectCard from "@/components/ProjectCard";
 import { Project } from "@/types/project";
 import Contact from "@/components/sections/Contact";
 import About from "@/components/sections/About";
+import { supabase } from "@/integrations/supabase/client";
+import { useQuery } from "@tanstack/react-query";
+
+const fetchProjects = async (): Promise<Project[]> => {
+  const { data: projects, error } = await supabase
+    .from('projects')
+    .select(`
+      *,
+      project_images (
+        url,
+        type,
+        "order"
+      )
+    `)
+    .order('created_at', { ascending: false });
+
+  if (error) {
+    console.error('Error fetching projects:', error);
+    throw error;
+  }
+
+  return projects.map(project => ({
+    id: project.id,
+    slug: project.slug,
+    title: project.title,
+    description: project.description,
+    category: project.category,
+    overview: project.overview,
+    role: project.role,
+    tools: project.tools,
+    challenges: project.challenges,
+    solutions: project.solutions,
+    outcomes: project.outcomes,
+    images: project.project_images
+      .sort((a: any, b: any) => a.order - b.order)
+      .map((img: any) => img.url),
+    profileImage: project.project_images.find((img: any) => img.type === 'cover')?.url || ''
+  }));
+};
 
 const Index = () => {
   const [mounted, setMounted] = useState(false);
   const [isDark, setIsDark] = useState(false);
   const navigate = useNavigate();
+
+  const { data: projects = [], isLoading, error } = useQuery({
+    queryKey: ['projects'],
+    queryFn: fetchProjects
+  });
 
   useEffect(() => {
     setMounted(true);
@@ -66,19 +110,31 @@ const Index = () => {
             Selected Work
           </h2>
           
-          <div 
-            className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
-            role="list"
-            aria-label="Project showcase"
-          >
-            {projects.map((project) => (
-              <ProjectCard
-                key={project.slug}
-                project={project}
-                onViewCaseStudy={(slug) => navigate(`/case-study/${slug}`)}
-              />
-            ))}
-          </div>
+          {isLoading ? (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 animate-pulse">
+              {[1, 2, 3].map((n) => (
+                <div key={n} className="bg-muted rounded-2xl h-[400px]" />
+              ))}
+            </div>
+          ) : error ? (
+            <div className="text-center text-red-500">
+              Failed to load projects. Please try again later.
+            </div>
+          ) : (
+            <div 
+              className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+              role="list"
+              aria-label="Project showcase"
+            >
+              {projects.map((project) => (
+                <ProjectCard
+                  key={project.slug}
+                  project={project}
+                  onViewCaseStudy={(slug) => navigate(`/case-study/${slug}`)}
+                />
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
@@ -107,44 +163,5 @@ const Index = () => {
     </div>
   );
 };
-
-const projects: Project[] = [
-  {
-    title: "Papyrus",
-    description: "Enhancing academic research accessibility through intuitive interface design.",
-    images: [
-      "/lovable-uploads/Papyrus-projectcard-img.png",
-      "/lovable-uploads/papyrus-1-papyrus.png",
-      "/lovable-uploads/papyrus-2-challenge.png",
-      "/lovable-uploads/papyrus-3-annotations.png"
-    ],
-    profileImage: "/lovable-uploads/Papyrus-projectcard-img.png",
-    slug: "papyrus"
-  },
-  {
-    title: "SOS Alarm",
-    description: "Optimizing emergency response workflows through cognitive ergonomics.",
-    images: [
-      "/lovable-uploads/SOSALArm-projectcard-img.png",
-      "/lovable-uploads/sos-1-helpseekercase.png",
-      "/lovable-uploads/sos-2-gtk.png",
-      "/lovable-uploads/sos-3-solution.png"
-    ],
-    profileImage: "/lovable-uploads/SOSALArm-projectcard-img.png",
-    slug: "sos-alarm"
-  },
-  {
-    title: "Solace",
-    description: "A mental health app for trauma recovery, leveraging AI-driven therapeutic interactions.",
-    images: [
-      "/lovable-uploads/Solace-projectcard-img.png",
-      "/lovable-uploads/solace-1-onboarding.png",
-      "/lovable-uploads/solace-2-home.png",
-      "/lovable-uploads/solace-3-form.png"
-    ],
-    profileImage: "/lovable-uploads/Solace-projectcard-img.png",
-    slug: "solace"
-  },
-];
 
 export default Index;
